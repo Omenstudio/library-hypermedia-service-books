@@ -8,8 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class AppConfig extends WebMvcConfigurerAdapter {
 
-    public static final String SITE_ADDR = "hhtp://localhost:8080";
-
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
         configurer.defaultContentType(JsonLdMediaType.APPLICATION_JSON_LD);

@@ -1,11 +1,32 @@
 {
   "@context": {
-    "vocab": "DOC_URL",
+    "vocab": "http://localhost:8080/api/vocab#",
     "hydra": "http://www.w3.org/ns/hydra/core#",
     "ApiDocumentation": "hydra:ApiDocumentation",
+    "property": {
+      "@id": "hydra:property",
+      "@type": "@id"
+    },
+    "readonly": "hydra:readonly",
+    "writeonly": "hydra:writeonly",
+    "supportedClass": "hydra:supportedClass",
+    "supportedProperty": "hydra:supportedProperty",
+    "supportedOperation": "hydra:supportedOperation",
+    "method": "hydra:method",
+    "expects": {
+      "@id": "hydra:expects",
+      "@type": "@id"
+    },
+    "returns": {
+      "@id": "hydra:returns",
+      "@type": "@id"
+    },
+    "statusCodes": "hydra:statusCodes",
+    "code": "hydra:statusCode",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "xmls": "http://www.w3.org/2001/XMLSchema#",
+    "label": "rdfs:label",
+    "description": "rdfs:comment",
     "domain": {
       "@id": "rdfs:domain",
       "@type": "@id"
@@ -17,22 +38,11 @@
     "subClassOf": {
       "@id": "rdfs:subClassOf",
       "@type": "@id"
-    },
-    "expects": {
-      "@id": "hydra:expects",
-      "@type": "@id"
-    },
-    "returns": {
-      "@id": "hydra:returns",
-      "@type": "@id"
     }
   },
-  "@id": "DOC_URL",
+  "@id": "http://localhost:8080/api/vocab",
   "@type": "ApiDocumentation",
-  "hydra:title": "Hypermedia API for social networks",
-  "hydra:description": "Hypermedia API for social networks",
-  "hydra:entrypoint": "/",
-  "hydra:supportedClass": [
+  "supportedClass": [
     {
       "@id": "http://www.w3.org/ns/hydra/core#Collection",
       "@type": "hydra:Class",
@@ -42,11 +52,11 @@
       "supportedProperty": [
         {
           "property": "http://www.w3.org/ns/hydra/core#member",
-          "hydra:required": true,
-          "hydra:readable": true,
-          "hydra:writable": true,
           "hydra:title": "members",
-          "hydra:description": "The members of this collection."
+          "hydra:description": "The members of this collection.",
+          "required": null,
+          "readonly": false,
+          "writeonly": false
         }
       ]
     },
@@ -59,349 +69,171 @@
       "supportedProperty": []
     },
     {
-      "@id": "http://schema.org/Person",
+      "@id": "http://schema.org/Event",
       "@type": "hydra:Class",
-      "rdfs:label": "Person",
-      "hydra:title": "Person",
-      "hydra:supportedProperty": [
+      "hydra:title": "Event",
+      "hydra:description": null,
+      "supportedOperation": [
         {
-          "hydra:property": {
-            "@id": "http://schema.org/givenName",
-            "@type": "rdf:Property",
-            "rdfs:label": "givenName",
-            "domain": "http://schema.org/Person",
-            "range": "xmls:string",
-            "supportedOperation": []
-          },
-          "hydra:required": true,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "givenName",
-          "hydra:description": "The first name of the Person"
+          "@id": "_:event_replace",
+          "@type": "http://schema.org/UpdateAction",
+          "method": "PUT",
+          "label": "Replaces an existing Event entity",
+          "description": null,
+          "expects": "http://schema.org/Event",
+          "returns": "http://schema.org/Event",
+          "statusCodes": [
+            {
+              "code": 404,
+              "description": "If the Event entity wasn't found."
+            }
+          ]
         },
         {
-          "hydra:property": {
-            "@id": "http://schema.org/familyName",
-            "@type": "rdf:Property",
-            "rdfs:label": "familyName",
-            "domain": "http://schema.org/Person",
-            "range": "xmls:string",
-            "supportedOperation": []
-          },
-          "hydra:required": true,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "familyName",
-          "hydra:description": "The last name of the Person"
+          "@id": "_:event_delete",
+          "@type": "http://schema.org/DeleteAction",
+          "method": "DELETE",
+          "label": "Deletes a Event entity",
+          "description": null,
+          "expects": null,
+          "returns": "http://www.w3.org/2002/07/owl#Nothing",
+          "statusCodes": []
         },
         {
-          "hydra:property": {
-            "@id": "http://schema.org/image",
-            "@type": "rdf:Property",
-            "rdfs:label": "image",
-            "domain": "http://schema.org/Person",
-            "range": "xmls:string",
-            "supportedOperation": []
-          },
-          "hydra:required": false,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "image",
-          "hydra:description": "An image of the Person"
+          "@id": "_:event_retrieve",
+          "@type": "hydra:Operation",
+          "method": "GET",
+          "label": "Retrieves a Event entity",
+          "description": null,
+          "expects": null,
+          "returns": "http://schema.org/Event",
+          "statusCodes": []
+        }
+      ],
+      "supportedProperty": [
+        {
+          "property": "http://schema.org/name",
+          "hydra:title": "name",
+          "hydra:description": "The event's name",
+          "required": true,
+          "readonly": false,
+          "writeonly": false
         },
         {
-          "hydra:property": {
-            "@id": "http://schema.org/description",
-            "@type": "rdf:Property",
-            "rdfs:label": "description",
-            "domain": "http://schema.org/Person",
-            "range": "xmls:string",
-            "supportedOperation": []
-          },
-          "hydra:required": false,
-          "hydra:readable": true,
-          "hydra:writable": false,
+          "property": "http://schema.org/description",
           "hydra:title": "description",
-          "hydra:description": "A description of the Person"
+          "hydra:description": "Description of the event",
+          "required": true,
+          "readonly": false,
+          "writeonly": false
         },
         {
-          "hydra:property": {
-            "@id": "http://schema.org/alternateName",
-            "@type": "rdf:Property",
-            "rdfs:label": "alternateName",
-            "domain": "http://schema.org/Person",
-            "range": "xmls:string",
-            "supportedOperation": []
-          },
-          "hydra:required": false,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "alternateName",
-          "hydra:description": "An alternative name of the Person"
+          "property": "http://schema.org/startDate",
+          "hydra:title": "start_date",
+          "hydra:description": "The start date and time of the event in ISO 8601 date format",
+          "required": true,
+          "readonly": false,
+          "writeonly": false
         },
         {
-          "hydra:property": {
-            "@id": "http://schema.org/knows",
-            "@type": "rdf:Property",
-            "rdfs:label": "knows",
-            "domain": "http://schema.org/Person",
-            "range": "xmls:string",
-            "supportedOperation": []
-          },
-          "hydra:required": false,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "knows",
-          "hydra:description": "..."
-        },
-        {
-          "hydra:property": {
-            "@id": "Person/friends",
-            "@type": "hydra:Link",
-            "rdfs:label": "friends",
-            "domain": "http://schema.org/Person",
-            "range": "FriendsCollection",
-            "hydra:supportedOperation": [
-              {
-                "@type": "hydra:Operation",
-                "hydra:method": "GET",
-                "hydra:title": "Retrieves the collection of the Person friends",
-                "rdfs:label": "Retrieves the collection of the Person friends",
-                "returns": "FriendsCollection"
-              }
-            ]
-          },
-          "hydra:required": false,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "friends",
-          "hydra:description": "The collection of Person friends"
-        },
-        {
-          "hydra:property": {
-            "@id": "Person/messages",
-            "@type": "hydra:Link",
-            "rdfs:label": "messages",
-            "domain": "http://schema.org/Person",
-            "range": "MessagesCollection",
-            "hydra:supportedOperation": [
-              {
-                "@type": "hydra:Operation",
-                "hydra:method": "POST",
-                "hydra:title": "Send new message to Person",
-                "rdfs:label": "Send new message Person",
-                "expects": "http://schema.org/text",
-                "returns": "http://schema.org/Message"
-              }
-            ]
-          },
-          "hydra:required": false,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "messages",
-          "hydra:description": "The collection of the Person messages"
-        }
-      ],
-      "hydra:supportedOperation": [
-        {
-          "@type": "hydra:Operation",
-          "hydra:method": "GET",
-          "hydra:title": "Retrieves a Person entity",
-          "rdfs:label": "Retrieves a Person entity",
-          "returns": "http://schema.org/Person"
+          "property": "http://schema.org/endDate",
+          "hydra:title": "end_date",
+          "hydra:description": "The end date and time of the event in ISO 8601 date format",
+          "required": true,
+          "readonly": false,
+          "writeonly": false
         }
       ]
     },
     {
-      "@id": "http://schema.org/Message",
+      "@id": "vocab:EntryPoint",
       "@type": "hydra:Class",
-      "rdfs:label": "Message",
-      "hydra:title": "Message",
-      "hydra:supportedProperty": [
+      "subClassOf": null,
+      "label": "EntryPoint",
+      "description": "The main entry point or homepage of the API.",
+      "supportedOperation": [
         {
-          "hydra:property": {
-            "@id": "Message/send_by",
+          "@id": "_:entry_point",
+          "@type": "hydra:Operation",
+          "method": "GET",
+          "label": "The APIs main entry point.",
+          "description": null,
+          "expects": null,
+          "returns": "vocab:EntryPoint",
+          "statusCodes": []
+        }
+      ],
+      "supportedProperty": [
+        {
+          "property": {
+            "@id": "vocab:EntryPoint/events",
             "@type": "hydra:Link",
-            "rdfs:label": "send_by",
-            "domain": "http://schema.org/Message",
-            "range": "http://schema.org/Person",
-            "hydra:supportedOperation": [
+            "label": "events",
+            "description": "The events collection",
+            "domain": "vocab:EntryPoint",
+            "range": "vocab:EventCollection",
+            "supportedOperation": [
               {
+                "@id": "_:event_collection_retrieve",
                 "@type": "hydra:Operation",
-                "hydra:method": "GET",
-                "hydra:title": "Retrieves a Person entity",
-                "rdfs:label": "Retrieves a Person entity",
-                "returns": "http://schema.org/Person"
+                "method": "GET",
+                "label": "Retrieves all Event entities",
+                "description": null,
+                "expects": null,
+                "returns": "vocab:EventCollection",
+                "statusCodes": []
               }
             ]
           },
-          "hydra:required": true,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "send_by",
-          "hydra:description": "The Person who send the Message"
-        },
-        {
-          "hydra:property": {
-            "@id": "http://schema.org/text",
-            "@type": "rdf:Property",
-            "rdfs:label": "text",
-            "domain": "http://schema.org/Message",
-            "range": "xmls:string",
-            "supportedOperation": []
-          },
-          "hydra:required": true,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "text",
-          "hydra:description": "The text of the Message"
+          "hydra:title": "events",
+          "hydra:description": "The events collection",
+          "required": null,
+          "readonly": true,
+          "writeonly": false
         }
-      ],
-      "hydra:supportedOperation": []
+      ]
     },
     {
-      "@id": "FriendsCollection",
+      "@id": "vocab:EventCollection",
       "@type": "hydra:Class",
       "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
-      "rdfs:label": "FriendsCollection",
-      "hydra:title": "A collection of the Person friends",
-      "hydra:supportedProperty": [
+      "label": "EventCollection",
+      "description": "A collection of events",
+      "supportedOperation": [
         {
-          "hydra:property": "http://www.w3.org/ns/hydra/core#member",
-          "hydra:required": true,
-          "hydra:readable": true,
-          "hydra:writable": false,
+          "@id": "_:event_create",
+          "@type": "http://schema.org/AddAction",
+          "method": "POST",
+          "label": "Creates a new Event entity",
+          "description": null,
+          "expects": "http://schema.org/Event",
+          "returns": "http://schema.org/Event",
+          "statusCodes": [
+            {
+              "code": 201,
+              "description": "If the Event entity was created successfully."
+            }
+          ]
+        },
+        {
+          "@id": "_:event_collection_retrieve",
+          "@type": "hydra:Operation",
+          "method": "GET",
+          "label": "Retrieves all Event entities",
+          "description": null,
+          "expects": null,
+          "returns": "vocab:EventCollection",
+          "statusCodes": []
+        }
+      ],
+      "supportedProperty": [
+        {
+          "property": "http://www.w3.org/ns/hydra/core#member",
           "hydra:title": "members",
-          "hydra:description": "The person friends"
-        }
-      ],
-      "hydra:supportedOperation": [
-        {
-          "@type": "hydra:Operation",
-          "hydra:method": "GET",
-          "hydra:title": "Retrieves the collection of Person friends",
-          "rdfs:label": "Retrieves the collection of Person friends",
-          "returns": "FriendsCollection"
-        }
-      ]
-    },
-    {
-      "@id": "MessagesCollection",
-      "@type": "hydra:Class",
-      "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
-      "rdfs:label": "MessagesCollection",
-      "hydra:title": "A collection of Person messages",
-      "hydra:supportedProperty": [
-        {
-          "hydra:property": "http://www.w3.org/ns/hydra/core#member",
-          "hydra:required": true,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "members",
-          "hydra:description": "The person messages"
-        }
-      ],
-      "hydra:supportedOperation": [
-        {
-          "@type": "hydra:Operation",
-          "hydra:method": "GET",
-          "hydra:title": "Retrieves the collection of Person messages",
-          "rdfs:label": "Retrieves the collection of Person messages",
-          "returns": "MessagesCollection"
-        },
-        {
-          "@type": "hydra:Operation",
-          "hydra:method": "POST",
-          "hydra:title": "Send new message",
-          "rdfs:label": "Send new message",
-          "expects": "http://schema.org/Message",
-          "returns": "http://schema.org/Message"
-        }
-      ]
-    },
-    {
-      "@id": "Entrypoint",
-      "@type": "hydra:Class",
-      "rdfs:label": "Entrypoint",
-      "hydra:title": "The API entrypoint",
-      "hydra:supportedProperty": [
-        {
-          "hydra:property": {
-            "@id": "Entrypoint/friends",
-            "@type": "hydra:Link",
-            "rdfs:label": "Friends",
-            "domain": "Entrypoint",
-            "range": "FriendsCollection",
-            "hydra:supportedOperation": [
-              {
-                "@type": "hydra:Operation",
-                "hydra:method": "GET",
-                "hydra:title": "Retrieves the collection of the authenticated Person friends",
-                "rdfs:label": "Retrieves the collection of the authenticated Person friends",
-                "returns": "FriendsCollection"
-              }
-            ]
-          },
-          "hydra:required": true,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "friends",
-          "hydra:description": "The collection of the authenticated Person friends"
-        },
-        {
-          "hydra:property": {
-            "@id": "Entrypoint/messages",
-            "@type": "hydra:Link",
-            "rdfs:label": "Messages",
-            "domain": "Entrypoint",
-            "range": "MessagesCollection",
-            "hydra:supportedOperation": [
-              {
-                "@type": "hydra:Operation",
-                "hydra:method": "GET",
-                "hydra:title": "Retrieves the collection of the authenticated Person messages",
-                "rdfs:label": "Retrieves the collection of the authenticated Person messages",
-                "returns": "MessagesCollection"
-              }
-            ]
-          },
-          "hydra:required": true,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "messages",
-          "hydra:description": "The collection of the authenticated Person messages"
-        },
-        {
-          "hydra:property": {
-            "@id": "Entrypoint/person",
-            "@type": "hydra:Link",
-            "rdfs:label": "Profile",
-            "domain": "Entrypoint",
-            "range": "http://schema.org/Person",
-            "hydra:supportedOperation": [
-              {
-                "@type": "hydra:Operation",
-                "hydra:method": "GET",
-                "hydra:title": "Retrieves the authenticated Person information",
-                "rdfs:label": "Retrieves the authenticated Person information",
-                "returns": "http://schema.org/Person"
-              }
-            ]
-          },
-          "hydra:required": true,
-          "hydra:readable": true,
-          "hydra:writable": false,
-          "hydra:title": "person",
-          "hydra:description": "The authenticated Person information"
-        }
-      ],
-      "hydra:supportedOperation": [
-        {
-          "@type": "hydra:Operation",
-          "hydra:method": "GET",
-          "hydra:title": "The APIs main entry point",
-          "rdfs:label": "The APIs main entry point",
-          "returns": "EntryPoint"
+          "hydra:description": "The events",
+          "required": null,
+          "readonly": false,
+          "writeonly": false
         }
       ]
     }
