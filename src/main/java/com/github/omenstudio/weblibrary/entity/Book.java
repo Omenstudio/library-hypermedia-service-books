@@ -1,11 +1,14 @@
 package com.github.omenstudio.weblibrary.entity;
 
+import com.github.omenstudio.weblibrary.annotation.HydraEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+@HydraEntity(pathId = "/events/")
 public class Book {
 
     @Id
@@ -14,6 +17,11 @@ public class Book {
 
     @Column(name = "title", nullable = false)
     private String title;
+
+    public Book() {
+        this.id = 777;
+        this.title = "Три топора";
+    }
 
     public String getTitle() {
         return title;

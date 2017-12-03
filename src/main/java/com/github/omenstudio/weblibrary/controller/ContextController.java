@@ -1,5 +1,6 @@
 package com.github.omenstudio.weblibrary.controller;
 
+import com.github.omenstudio.weblibrary.AppConfig;
 import com.github.omenstudio.weblibrary.annotation.HydraGet;
 import com.google.gson.JsonObject;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class ContextController {
     public Object getEntryPointContext(HttpServletRequest request) {
         JsonObject innerObject = new JsonObject();
         innerObject.addProperty("hydra", "http://www.w3.org/ns/hydra/core#");
-        innerObject.addProperty("vocab", "http://localhost:8080/api/vocab#");
+        innerObject.addProperty("vocab", AppConfig.HTTP_ADDRESS + "/api/vocab#");
         innerObject.addProperty("EntryPoint", "vocab:EntryPoint");
 
         JsonObject events = new JsonObject();
