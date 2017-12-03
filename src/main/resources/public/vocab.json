@@ -1,6 +1,6 @@
 {
   "@context": {
-    "vocab": "http://localhost:8080/api/vocab#",
+    "vocab": "VOCAB_ADDR/api/vocab#",
     "hydra": "http://www.w3.org/ns/hydra/core#",
     "ApiDocumentation": "hydra:ApiDocumentation",
     "property": {
@@ -40,7 +40,7 @@
       "@type": "@id"
     }
   },
-  "@id": "http://localhost:8080/api/vocab",
+  "@id": "VOCAB_ADDR/api/vocab",
   "@type": "ApiDocumentation",
   "supportedClass": [
     {

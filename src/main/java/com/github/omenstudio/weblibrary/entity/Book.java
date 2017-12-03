@@ -1,7 +1,5 @@
 package com.github.omenstudio.weblibrary.entity;
 
-import de.escalon.hypermedia.hydra.mapping.Term;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

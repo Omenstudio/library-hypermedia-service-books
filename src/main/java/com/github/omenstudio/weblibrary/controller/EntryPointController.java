@@ -1,5 +1,6 @@
 package com.github.omenstudio.weblibrary.controller;
 
+import com.github.omenstudio.weblibrary.annotation.HydraGet;
 import com.google.gson.JsonObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,18 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/api/")
 public class EntryPointController {
 
-    @CrossOrigin
-    @GetMapping(produces = "application/ld+json")
-    public ResponseEntity<String> getEntryPoint(HttpServletRequest request) {
+    @HydraGet
+    public Object getEntryPoint(HttpServletRequest request) {
         JsonObject res = new JsonObject();
         res.addProperty("@context", "/api/contexts/EntryPoint.jsonld");
         res.addProperty("@id", "/api/");
         res.addProperty("@type", "EntryPoint");
         res.addProperty("events", "/api/events/");
 
-        return ResponseEntity.ok()
-                .header("Access-Control-Expose-Headers", "Link")
-                .header("Link", "<http://localhost:8080/api/vocab>; rel=\"http://www.w3.org/ns/hydra/core#apiDocumentation\"")
-                .body(res.toString());
+        return res;
     }
 }
