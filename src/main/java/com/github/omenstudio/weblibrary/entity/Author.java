@@ -6,21 +6,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 @HydraEntity
-public class Book {
-
+public class Author {
     @Id
     @GeneratedValue
-    private long id;
+    long id;
 
     @Column(nullable = false)
-    private String title;
+    String name;
 
-    public Book() {
-        this.id = 777;
-        this.title = "Три топора";
-    }
+    @Column
+    Date birthDate;
+
 
 }

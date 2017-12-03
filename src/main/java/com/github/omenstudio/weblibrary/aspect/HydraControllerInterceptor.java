@@ -69,7 +69,7 @@ public class HydraControllerInterceptor {
             }
 
             JsonObject resultJson = gsonParser.parse(gsonBuilder.toJson(objectFromController)).getAsJsonObject();
-            resultJson.addProperty("@id", "/api" + hydraEntity.pathId() + objectId);
+            resultJson.addProperty("@id", "/api/" + className.toLowerCase() + "s/" + objectId);
             resultJson.addProperty("@context", "/api/contexts/" + className);
             resultJson.addProperty("@type", className);
 
