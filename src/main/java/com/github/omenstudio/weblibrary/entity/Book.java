@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-@HydraEntity(pathId = "/events/")
+@HydraEntity(pathId = "/books/")
 public class Book {
 
     @Id

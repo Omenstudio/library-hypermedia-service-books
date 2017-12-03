@@ -25,7 +25,7 @@ public class VocabController {
             try {
                 apiDoc = new String(Files.readAllBytes(
                         Paths.get(ClassLoader.getSystemResource("public/vocab.json").toURI())
-                )).replaceAll("VOCAB_ADDR", AppConfig.HTTP_ADDRESS);
+                )).replaceAll("APP_ADDR", AppConfig.HTTP_ADDRESS);
             } catch (IOException|URISyntaxException e) {
                 e.printStackTrace();
                 throw new RuntimeException("Cannot read API DOC file");

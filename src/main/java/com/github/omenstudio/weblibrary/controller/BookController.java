@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/event2s/")
+@RequestMapping("/api/books/")
 public class BookController {
 
 
     @HydraGet(path = "777")
-    public Object getEvents() {
+    public Object getBooks() {
         return new Book();
     }
 

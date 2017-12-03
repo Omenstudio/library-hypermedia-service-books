@@ -19,10 +19,10 @@ public class EntryPointController {
     @HydraGet
     public Object getEntryPoint(HttpServletRequest request) {
         JsonObject res = new JsonObject();
-        res.addProperty("@context", "/api/contexts/EntryPoint.jsonld");
+        res.addProperty("@context", "/api/contexts/EntryPoint");
         res.addProperty("@id", "/api/");
         res.addProperty("@type", "EntryPoint");
-        res.addProperty("events", "/api/events/");
+        res.addProperty("books", "/api/books/");
 
         return res;
     }
