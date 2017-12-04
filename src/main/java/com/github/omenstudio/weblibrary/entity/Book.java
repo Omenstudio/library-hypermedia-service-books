@@ -47,7 +47,6 @@ public class Book {
     private Set<Author> authors;
 
     @ManyToOne
-    @JoinColumn(name = "id")
     private Publisher publisher;
 
 

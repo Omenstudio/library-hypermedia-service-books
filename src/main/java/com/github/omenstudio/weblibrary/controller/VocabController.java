@@ -1,8 +1,7 @@
 package com.github.omenstudio.weblibrary.controller;
 
 import com.github.omenstudio.weblibrary.AppConfig;
-import com.github.omenstudio.weblibrary.annotation.HydraGet;
-import org.springframework.http.ResponseEntity;
+import com.github.omenstudio.weblibrary.annotation.HydraGetRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +18,7 @@ public class VocabController {
 
     private String apiDoc;
 
-    @HydraGet
+    @HydraGetRequest
     public Object getApiDocumentation(HttpServletRequest request) {
         if (apiDoc == null) {
             try {
