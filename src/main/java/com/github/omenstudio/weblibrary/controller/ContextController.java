@@ -17,15 +17,7 @@ public class ContextController {
 
     @HydraGetRequest("EntryPoint")
     public Object getEntryPointContext() {
-        JsonObject innerObject = new JsonObject();
-        innerObject.addProperty("EntryPoint", "vocab:EntryPoint");
-
-        JsonObject books = new JsonObject();
-        books.addProperty("@id", "vocab:EntryPoint/books");
-        books.addProperty("@type", "@id");
-        innerObject.add("books", books);
-
-        return ContextBuilder.buildForEntryPoint(innerObject);
+        return ContextBuilder.buildForEntryPoint("books", "authors", "publishers");
     }
 
     @HydraGetRequest("Book")
@@ -33,9 +25,19 @@ public class ContextController {
         return ContextBuilder.buildForClass(Book.class);
     }
 
+    @HydraGetRequest("BookCollection")
+    public Object getBookCollection() {
+        return ContextBuilder.buildForCollection(Book.class);
+    }
+
     @HydraGetRequest("Author")
     public Object getAuthorContext() {
         return ContextBuilder.buildForClass(Author.class);
+    }
+
+    @HydraGetRequest("AuthorCollection")
+    public Object getAuthorCollection() {
+        return ContextBuilder.buildForCollection(Author.class);
     }
 
     @HydraGetRequest("Publisher")
@@ -43,4 +45,8 @@ public class ContextController {
         return ContextBuilder.buildForClass(Publisher.class);
     }
 
+    @HydraGetRequest("PublisherCollection")
+    public Object getPublisherCollection() {
+        return ContextBuilder.buildForCollection(Publisher.class);
+    }
 }

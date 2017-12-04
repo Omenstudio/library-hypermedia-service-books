@@ -13,8 +13,30 @@ public class ContextBuilder {
 
     private final static Logger logger = LoggerFactory.getLogger(ContextBuilder.class);
 
+    // doc this
+    public static JsonObject buildForEntryPoint(String... links) {
+        JsonObject resultJson = new JsonObject();
+        resultJson.addProperty("EntryPoint", "vocab:EntryPoint");
 
-    public static JsonObject buildForEntryPoint(JsonObject resultJson) {
+        for (String link : links) {
+            JsonObject linkObject = new JsonObject();
+            linkObject.addProperty("@id", "vocab:EntryPoint/" + link);
+            linkObject.addProperty("@type", "@id");
+            resultJson.add(link, linkObject);
+        }
+
+        return wrapContext(resultJson);
+    }
+
+    // doc this
+    public static JsonObject buildForCollection(Class collectionItemClass) {
+        JsonObject resultJson = new JsonObject();
+        resultJson.addProperty(
+                collectionItemClass.getSimpleName() + "Collection",
+                "vocab:"+collectionItemClass.getSimpleName()+"Collection"
+        );
+        resultJson.addProperty("members","http://www.w3.org/ns/hydra/core#member");
+
         return wrapContext(resultJson);
     }
 
