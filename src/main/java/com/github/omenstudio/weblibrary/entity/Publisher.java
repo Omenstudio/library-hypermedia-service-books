@@ -1,27 +1,37 @@
 package com.github.omenstudio.weblibrary.entity;
 
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.annotation.HydraType;
+import com.github.omenstudio.hydraback.annotation.JsonExclude;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
-@Entity
 @HydraEntity
+@HydraType("http://schema.org/Organization")
+@Entity
 @Table(name = "publishers")
 public class Publisher {
+
+    @JsonExclude
     @Id
     @GeneratedValue
     private Long id;
 
+    @HydraType("http://schema.org/legalName")
     @Column(nullable = false)
     private String title;
 
+    @HydraType("http://schema.org/isbn")
     @Column
     private String isbn;
 
+    @HydraType("http://schema.org/foundingDate")
     @Column
-    private Integer foundYear;
+    private Date foundingDate;
 
+    @HydraType("http://schema.org/location")
     @Column
     private String address;
 
@@ -53,12 +63,12 @@ public class Publisher {
         this.isbn = isbn;
     }
 
-    public Integer getFoundYear() {
-        return foundYear;
+    public Date getFoundingDate() {
+        return foundingDate;
     }
 
-    public void setFoundYear(Integer foundYear) {
-        this.foundYear = foundYear;
+    public void setFoundingDate(Date foundingDate) {
+        this.foundingDate = foundingDate;
     }
 
     public String getAddress() {

@@ -1,26 +1,33 @@
 package com.github.omenstudio.weblibrary.entity;
 
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.annotation.HydraType;
+import com.github.omenstudio.hydraback.annotation.JsonExclude;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
 @HydraEntity
+@HydraType("http://schema.org/Person")
 @Entity
 @Table(name = "authors")
 public class Author {
 
+    @JsonExclude
     @Id
     @GeneratedValue
     private Long id;
 
+    @HydraType("http://schema.org/name")
     @Column(nullable = false)
     private String name;
 
+    @HydraType("http://schema.org/birthDate")
     @Column
     private Date birthDate;
 
+    @HydraType("http://schema.org/birthPlace")
     @Column
     private String birthPlace;
 
