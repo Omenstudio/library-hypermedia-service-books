@@ -1,6 +1,7 @@
-package com.github.omenstudio.hydraback;
+package com.github.omenstudio.hydraback.builder;
 
 import com.github.omenstudio.hydraback.annotation.HydraType;
+import com.github.omenstudio.hydraback.utils.HydraUrlResolver;
 import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,7 +120,7 @@ public class ContextBuilder {
 
     private static JsonObject wrapContext(JsonObject contextInfo) {
         contextInfo.addProperty("hydra", "http://www.w3.org/ns/hydra/core#");
-        contextInfo.addProperty("vocab", HydraAppConfig.getApplicationHttpAddress()+ "/api/vocab#");
+        contextInfo.addProperty("vocab", HydraUrlResolver.getVocabPath() + "#");
 
         JsonObject contextWrapper = new JsonObject();
         contextWrapper.add("@context", contextInfo);

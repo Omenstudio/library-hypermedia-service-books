@@ -1,11 +1,10 @@
 package com.github.omenstudio.weblibrary.controller;
 
-import com.github.omenstudio.hydraback.ContextBuilder;
 import com.github.omenstudio.hydraback.annotation.HydraGetRequest;
+import com.github.omenstudio.hydraback.builder.ContextBuilder;
 import com.github.omenstudio.weblibrary.entity.Author;
 import com.github.omenstudio.weblibrary.entity.Book;
 import com.github.omenstudio.weblibrary.entity.Publisher;
-import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

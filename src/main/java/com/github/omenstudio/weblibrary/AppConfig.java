@@ -1,9 +1,7 @@
 package com.github.omenstudio.weblibrary;
 
 
-import com.github.omenstudio.hydraback.HydraAppConfig;
-import com.github.omenstudio.hydraback.aspect.HydraResponseBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.omenstudio.hydraback.utils.HydraUrlResolver;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,14 +9,10 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan("com.github.omenstudio.hydraback.*")
 public class AppConfig {
 
-    @Autowired
-    HydraResponseBuilder hydraResponseBuilder;
-
     static {
-        HydraAppConfig.setApplicationHttpAddress("http://localhost:8080");
+        HydraUrlResolver.setApplicationAddress("http://localhost:8080");
+        HydraUrlResolver.setApiPath("/api");
+        HydraUrlResolver.setVocabPath("/api/vocab");
     }
 
-    public static String getApplicationHttpAddress() {
-        return HydraAppConfig.getApplicationHttpAddress();
-    }
 }

@@ -2,6 +2,7 @@ package com.github.omenstudio.hydraback.aspect;
 
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
 import com.github.omenstudio.hydraback.utils.AnnotationJsonExclusionStrategy;
+import com.github.omenstudio.hydraback.utils.HydraUrlResolver;
 import com.google.gson.*;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,7 +15,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 
 @Aspect
 @Component
@@ -51,7 +51,8 @@ public class HydraResponseBuilder {
 
         return ResponseEntity.ok()
                 .header("Access-Control-Expose-Headers", "Link")
-                .header("Link", "<http://localhost:8080/api/vocab>; rel=\"http://www.w3.org/ns/hydra/core#apiDocumentation\"")
+                .header("Link", "<"+ HydraUrlResolver.getVocabAddress()+">; " +
+                        "rel=\"http://www.w3.org/ns/hydra/core#apiDocumentation\"")
                 .body(response);
     }
 
@@ -92,19 +93,16 @@ public class HydraResponseBuilder {
 
         JsonObject resultJson = new JsonObject();
         JsonArray membersJson = new JsonArray();
-        String itemPathId = null,
-                itemType = null;
-        Iterator it = entityCollection.iterator();
-        while (it.hasNext()) {
-            Object obj = it.next();
+        String itemPathId = null, itemType = null;
 
+        for (Object obj : entityCollection) {
             if (itemPathId == null) {
                 String className = obj.getClass().getSimpleName();
-                itemPathId = "/api/" + className.toLowerCase() + "s/";
+                itemPathId = HydraUrlResolver.getApiPath() + "/" + className.toLowerCase() + "s/";
                 itemType = "http://schema.org/" + className;
 
-                resultJson.addProperty("@id", itemPathId );
-                resultJson.addProperty("@context", "/api/contexts/" + className + "Collection");
+                resultJson.addProperty("@id", itemPathId);
+                resultJson.addProperty("@context", HydraUrlResolver.getApiPath() + "/contexts/" + className + "Collection");
                 resultJson.addProperty("@type", className + "Collection");
             }
 
@@ -173,8 +171,8 @@ public class HydraResponseBuilder {
         }
 
         JsonObject resultJson = gsonParser.parse(gsonBuilder.toJson(entityObject)).getAsJsonObject();
-        resultJson.addProperty("@id", "/api/" + className.toLowerCase() + "s/" + objectId);
-        resultJson.addProperty("@context", "/api/contexts/" + className);
+        resultJson.addProperty("@id", HydraUrlResolver.getApiPath() + "/" + className.toLowerCase() + "s/" + objectId);
+        resultJson.addProperty("@context", HydraUrlResolver.getApiPath() + "/contexts/" + className);
         resultJson.addProperty("@type", className);
 
         return resultJson.toString();
