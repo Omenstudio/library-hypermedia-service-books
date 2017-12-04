@@ -1,6 +1,7 @@
-package com.github.omenstudio.weblibrary.aspect;
+package com.github.omenstudio.hydraback.aspect;
 
-import com.github.omenstudio.weblibrary.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.utils.AnnotationJsonExclusionStrategy;
 import com.google.gson.*;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -15,22 +16,26 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
-
 @Aspect
 @Component
 public class HydraResponseBuilder {
 
-    private static final Gson gsonBuilder = new GsonBuilder().create();
+    private static final Gson gsonBuilder;
 
-    private static final JsonParser gsonParser = new JsonParser();
+    private static final JsonParser gsonParser;
 
-    @Pointcut("@annotation(com.github.omenstudio.weblibrary.annotation.HydraGetRequest)")
-    public void hydraGet() {
+    static {
+        gsonBuilder = new GsonBuilder()
+                .setExclusionStrategies(new AnnotationJsonExclusionStrategy())
+                .create();
+        gsonParser = new JsonParser();
     }
 
+    @Pointcut("@annotation(com.github.omenstudio.hydraback.annotation.HydraGetRequest)")
+    public void hydraGetRequest() { }
 
-    @Around("hydraGet()")
-    public Object logHydraGet(ProceedingJoinPoint thisJoinPoint) {
+    @Around("hydraGetRequest()")
+    public Object makeHydraResponseForGet(ProceedingJoinPoint thisJoinPoint) {
         String methodName = thisJoinPoint.getSignature().getName();
 
         Object objectFromController = null;

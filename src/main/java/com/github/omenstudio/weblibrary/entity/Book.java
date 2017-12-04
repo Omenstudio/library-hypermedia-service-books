@@ -1,40 +1,48 @@
 package com.github.omenstudio.weblibrary.entity;
 
-import com.github.omenstudio.weblibrary.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.annotation.HydraType;
+import com.github.omenstudio.hydraback.annotation.JsonExclude;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @HydraEntity
+@HydraType("http://schema.org/Book")
 @Entity
 @Table(name = "books")
 public class Book {
 
+    @JsonExclude
     @Id
     @GeneratedValue
     private Long id;
 
+    @HydraType("http://schema.org/headline")
     @Column(nullable = false)
     private String title;
 
+    @HydraType("http://schema.org/headline")
     @Column
     private String originalTitle;
 
+    @HydraType("http://schema.org/description")
     @Column
-    private String shortDescription;
+    private String description;
 
-    @Column
-    private String fullDescription;
-
+    @HydraType("http://schema.org/copyrightYear")
     @Column
     private Integer publishYear;
 
+    @HydraType("http://schema.org/bookEdition")
     @Column
-    private Integer publishNumber;
+    private Integer publishEdition;
 
+    @HydraType("http://schema.org/numberOfPages")
     @Column
     private Integer pageCount;
 
+    @HydraType("http://schema.org/isbn")
     @Column
     private String isbn;
 
@@ -74,20 +82,12 @@ public class Book {
         this.originalTitle = originalTitle;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public String getFullDescription() {
-        return fullDescription;
-    }
-
-    public void setFullDescription(String fullDescription) {
-        this.fullDescription = fullDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getPublishYear() {
@@ -98,12 +98,12 @@ public class Book {
         this.publishYear = publishYear;
     }
 
-    public Integer getPublishNumber() {
-        return publishNumber;
+    public Integer getPublishEdition() {
+        return publishEdition;
     }
 
-    public void setPublishNumber(Integer publishNumber) {
-        this.publishNumber = publishNumber;
+    public void setPublishEdition(Integer publishEdition) {
+        this.publishEdition = publishEdition;
     }
 
     public Integer getPageCount() {

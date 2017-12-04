@@ -1,12 +1,13 @@
 package com.github.omenstudio.weblibrary.entity;
 
-import com.github.omenstudio.weblibrary.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.annotation.HydraEntity;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @HydraEntity
+@Table(name = "publishers")
 public class Publisher {
     @Id
     @GeneratedValue

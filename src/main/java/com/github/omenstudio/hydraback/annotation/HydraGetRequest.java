@@ -1,4 +1,4 @@
-package com.github.omenstudio.weblibrary.annotation;
+package com.github.omenstudio.hydraback.annotation;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,5 +17,5 @@ import java.lang.annotation.Target;
 @RequestMapping(method = RequestMethod.GET, produces = "application/ld+json")
 public @interface HydraGetRequest {
     @AliasFor(annotation = RequestMapping.class, attribute = "path")
-    String[] path() default {};
+    String[] value() default {};
 }
