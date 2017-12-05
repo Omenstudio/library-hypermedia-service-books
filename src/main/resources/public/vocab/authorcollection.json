@@ -1,0 +1,44 @@
+{
+  "@id": "vocab:AuthorCollection",
+  "@type": "hydra:Class",
+  "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
+  "label": "AuthorCollection",
+  "description": "A collection of authors",
+  "supportedOperation": [
+    {
+      "@id": "_:author_create",
+      "@type": "http://schema.org/AddAction",
+      "method": "POST",
+      "label": "Creates a new Author entity",
+      "description": null,
+      "expects": "http://schema.org/author",
+      "returns": "http://schema.org/author",
+      "statusCodes": [
+        {
+          "code": 201,
+          "description": "If the Author entity was created successfully."
+        }
+      ]
+    },
+    {
+      "@id": "_:author_collection_retrieve",
+      "@type": "hydra:Operation",
+      "method": "GET",
+      "label": "Retrieves all Author entities",
+      "description": null,
+      "expects": null,
+      "returns": "vocab:AuthorCollection",
+      "statusCodes": []
+    }
+  ],
+  "supportedProperty": [
+    {
+      "property": "http://www.w3.org/ns/hydra/core#member",
+      "hydra:title": "members",
+      "hydra:description": "The authors",
+      "required": null,
+      "readonly": false,
+      "writeonly": false
+    }
+  ]
+}

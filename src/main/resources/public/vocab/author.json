@@ -1,0 +1,69 @@
+{
+  "@id": "http://schema.org/author",
+  "@type": "hydra:Class",
+  "hydra:title": "Author",
+  "hydra:description": null,
+  "supportedOperation": [
+    {
+      "@id": "_:author_replace",
+      "@type": "http://schema.org/UpdateAction",
+      "method": "PUT",
+      "label": "Replaces an existing Author",
+      "description": null,
+      "expects": "http://schema.org/author",
+      "returns": "http://schema.org/author",
+      "statusCodes": [
+        {
+          "code": 404,
+          "description": "If the Author entity wasn't found."
+        }
+      ]
+    },
+    {
+      "@id": "_:author_delete",
+      "@type": "http://schema.org/DeleteAction",
+      "method": "DELETE",
+      "label": "Deletes a Author entity",
+      "description": null,
+      "expects": null,
+      "returns": "http://www.w3.org/2002/07/owl#Nothing",
+      "statusCodes": []
+    },
+    {
+      "@id": "_:author_retrieve",
+      "@type": "hydra:Operation",
+      "method": "GET",
+      "label": "Retrieves a Author entity",
+      "description": null,
+      "expects": null,
+      "returns": "http://schema.org/author",
+      "statusCodes": []
+    }
+  ],
+  "supportedProperty": [
+    {
+      "property": "http://schema.org/name",
+      "hydra:title": "name",
+      "hydra:description": "The author's name",
+      "required": true,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
+      "property": "http://schema.org/birthDate",
+      "hydra:title": "birthDate",
+      "hydra:description": "Date of author's birth.",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
+      "property": "http://schema.org/birthPlace",
+      "hydra:title": "birthPlace",
+      "hydra:description": "The place where the author was born.",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    }
+  ]
+}

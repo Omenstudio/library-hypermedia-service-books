@@ -1,0 +1,69 @@
+{
+  "@id": "http://schema.org/publisher",
+  "@type": "hydra:Class",
+  "hydra:title": "Publisher",
+  "hydra:description": null,
+  "supportedOperation": [
+    {
+      "@id": "_:publisher_replace",
+      "@type": "http://schema.org/UpdateAction",
+      "method": "PUT",
+      "label": "Replaces an existing Publisher",
+      "description": null,
+      "expects": "http://schema.org/publisher",
+      "returns": "http://schema.org/publisher",
+      "statusCodes": [
+        {
+          "code": 404,
+          "description": "If the Publisher entity wasn't found."
+        }
+      ]
+    },
+    {
+      "@id": "_:publisher_delete",
+      "@type": "http://schema.org/DeleteAction",
+      "method": "DELETE",
+      "label": "Deletes a Publisher entity",
+      "description": null,
+      "expects": null,
+      "returns": "http://www.w3.org/2002/07/owl#Nothing",
+      "statusCodes": []
+    },
+    {
+      "@id": "_:publisher_retrieve",
+      "@type": "hydra:Operation",
+      "method": "GET",
+      "label": "Retrieves a Publisher entity",
+      "description": null,
+      "expects": null,
+      "returns": "http://schema.org/publisher",
+      "statusCodes": []
+    }
+  ],
+  "supportedProperty": [
+    {
+      "property": "http://schema.org/name",
+      "hydra:title": "name",
+      "hydra:description": "The publisher's name",
+      "required": true,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
+      "property": "http://schema.org/foundingDate",
+      "hydra:title": "foundingDate",
+      "hydra:description": "The date that this organization was founded.",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
+      "property": "http://schema.org/location",
+      "hydra:title": "location",
+      "hydra:description": "The place where the publisher was born.",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "@id": "vocab:PublisherCollection",
+  "@type": "hydra:Class",
+  "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
+  "label": "PublisherCollection",
+  "description": "A collection of publishers",
+  "supportedOperation": [
+    {
+      "@id": "_:publisher_create",
+      "@type": "http://schema.org/AddAction",
+      "method": "POST",
+      "label": "Creates a new Publisher entity",
+      "description": null,
+      "expects": "http://schema.org/Publisher",
+      "returns": "http://schema.org/Publisher",
+      "statusCodes": [
+        {
+          "code": 201,
+          "description": "If the Publisher entity was created successfully."
+        }
+      ]
+    },
+    {
+      "@id": "_:publisher_collection_retrieve",
+      "@type": "hydra:Operation",
+      "method": "GET",
+      "label": "Retrieves all Publisher entities",
+      "description": null,
+      "expects": null,
+      "returns": "vocab:PublisherCollection",
+      "statusCodes": []
+    }
+  ],
+  "supportedProperty": [
+    {
+      "property": "http://www.w3.org/ns/hydra/core#member",
+      "hydra:title": "members",
+      "hydra:description": "The publishers",
+      "required": null,
+      "readonly": false,
+      "writeonly": false
+    }
+  ]
+}

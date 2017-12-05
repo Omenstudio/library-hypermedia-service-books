@@ -19,13 +19,9 @@ public class Publisher {
     @GeneratedValue
     private Long id;
 
-    @HydraType("http://schema.org/legalName")
+    @HydraType("http://schema.org/name")
     @Column(nullable = false)
     private String title;
-
-    @HydraType("http://schema.org/isbn")
-    @Column
-    private String isbn;
 
     @HydraType("http://schema.org/foundingDate")
     @Column
@@ -33,7 +29,7 @@ public class Publisher {
 
     @HydraType("http://schema.org/location")
     @Column
-    private String address;
+    private String location;
 
     @OneToMany(mappedBy = "publisher")
     private Set<Book> books;
@@ -55,14 +51,6 @@ public class Publisher {
         this.title = title;
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
     public Date getFoundingDate() {
         return foundingDate;
     }
@@ -71,12 +59,12 @@ public class Publisher {
         this.foundingDate = foundingDate;
     }
 
-    public String getAddress() {
-        return address;
+    public String getLocation() {
+        return location;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Set<Book> getBooks() {
@@ -86,6 +74,4 @@ public class Publisher {
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
-
-
 }
