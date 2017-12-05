@@ -3,9 +3,12 @@ package com.github.omenstudio.weblibrary.entity;
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
 import com.github.omenstudio.hydraback.annotation.HydraType;
 import com.github.omenstudio.hydraback.annotation.JsonExclude;
+import org.hibernate.annotations.LazyCollection;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @HydraEntity
@@ -31,8 +34,18 @@ public class Author {
     @Column
     private String birthPlace;
 
-    @ManyToMany(mappedBy = "authors")
-    private Set<Book> books;
+    @JsonExclude
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @Lazy
+    private List<Book> books;
+
+    public Author() { }
+
+    public Author(String name, Date birthDate, String birthPlace) {
+        this.name = name;
+        if (birthDate != null) this.birthDate = birthDate;
+        if (birthPlace != null) this.birthPlace = birthPlace;
+    }
 
     public Long getId() {
         return id;
@@ -66,11 +79,4 @@ public class Author {
         this.birthPlace = birthPlace;
     }
 
-    public Set<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(Set<Book> books) {
-        this.books = books;
-    }
 }

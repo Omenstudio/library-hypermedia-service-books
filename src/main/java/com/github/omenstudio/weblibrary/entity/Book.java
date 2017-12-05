@@ -5,7 +5,6 @@ import com.github.omenstudio.hydraback.annotation.HydraType;
 import com.github.omenstudio.hydraback.annotation.JsonExclude;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @HydraEntity
 @HydraType("http://schema.org/Book")
@@ -46,17 +45,23 @@ public class Book {
     @Column
     private String isbn;
 
-    @ManyToMany
-    @JoinTable(
-            name = "authors_books",
-            joinColumns = { @JoinColumn(name = "book_id") },
-            inverseJoinColumns = { @JoinColumn(name = "author_id") }
-    )
-    private Set<Author> authors;
+    @ManyToOne
+    private Author author;
 
     @ManyToOne
     private Publisher publisher;
 
+    public Book() { }
+
+    public Book(String title, String originalTitle, String description, Integer copyrightYear, Integer bookEdition, Integer numberOfPages, String isbn) {
+        this.title = title;
+        if (originalTitle != null) this.originalTitle = originalTitle;
+        if (description != null) this.description = description;
+        if (copyrightYear != null) this.copyrightYear = copyrightYear;
+        if (bookEdition != null) this.bookEdition = bookEdition;
+        if (numberOfPages != null) this.numberOfPages = numberOfPages;
+        if (isbn != null) this.isbn = isbn;
+    }
 
     public Long getId() {
         return id;
@@ -122,19 +127,19 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public Set<Author> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(Set<Author> authors) {
-        this.authors = authors;
-    }
-
     public Publisher getPublisher() {
         return publisher;
     }
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }

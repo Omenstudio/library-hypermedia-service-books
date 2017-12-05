@@ -3,13 +3,15 @@ package com.github.omenstudio.weblibrary.entity;
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
 import com.github.omenstudio.hydraback.annotation.HydraType;
 import com.github.omenstudio.hydraback.annotation.JsonExclude;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @HydraEntity
-@HydraType("http://schema.org/publisher")
+@HydraType("http://schema.org/Publisher")
 @Entity
 @Table(name = "publishers")
 public class Publisher {
@@ -31,9 +33,18 @@ public class Publisher {
     @Column
     private String location;
 
-    @OneToMany(mappedBy = "publisher")
-    private Set<Book> books;
+    @JsonExclude
+    @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
+    @Lazy
+    private List<Book> books;
 
+    public Publisher() { }
+
+    public Publisher(String title, Date foundingDate, String location) {
+        this.title = title;
+        if (foundingDate != null) this.foundingDate = foundingDate;
+        if (location != null) this.location = location;
+    }
 
     public Long getId() {
         return id;
@@ -67,11 +78,4 @@ public class Publisher {
         this.location = location;
     }
 
-    public Set<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(Set<Book> books) {
-        this.books = books;
-    }
 }

@@ -11,8 +11,8 @@
       "method": "POST",
       "label": "Creates a new Publisher entity",
       "description": null,
-      "expects": "http://schema.org/publisher",
-      "returns": "http://schema.org/publisher",
+      "expects": "http://schema.org/Publisher",
+      "returns": "http://schema.org/Publisher",
       "statusCodes": [
         {
           "code": 201,

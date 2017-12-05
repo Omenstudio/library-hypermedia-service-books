@@ -1,5 +1,5 @@
 {
-  "@id": "http://schema.org/author",
+  "@id": "http://schema.org/Person",
   "@type": "hydra:Class",
   "hydra:title": "Author",
   "hydra:description": null,
@@ -10,8 +10,8 @@
       "method": "PUT",
       "label": "Replaces an existing Author",
       "description": null,
-      "expects": "http://schema.org/author",
-      "returns": "http://schema.org/author",
+      "expects": "http://schema.org/Person",
+      "returns": "http://schema.org/Person",
       "statusCodes": [
         {
           "code": 404,
@@ -36,7 +36,7 @@
       "label": "Retrieves a Author entity",
       "description": null,
       "expects": null,
-      "returns": "http://schema.org/author",
+      "returns": "http://schema.org/Person",
       "statusCodes": []
     }
   ],
