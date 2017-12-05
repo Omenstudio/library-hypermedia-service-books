@@ -18,7 +18,7 @@ import java.util.Collection;
 
 @Aspect
 @Component
-public class HydraResponseBuilder {
+public class HydraRequestHandler {
 
     private static final Gson gsonBuilder;
 
