@@ -1,0 +1,102 @@
+{
+  "@id": "vocab:EntryPoint",
+  "@type": "hydra:Class",
+  "subClassOf": null,
+  "label": "EntryPoint",
+  "description": "The main entry point or homepage of the API.",
+  "supportedOperation": [
+    {
+      "@id": "_:entry_point",
+      "@type": "hydra:Operation",
+      "method": "GET",
+      "label": "The APIs main entry point.",
+      "description": null,
+      "expects": null,
+      "returns": "vocab:EntryPoint",
+      "statusCodes": []
+    }
+  ],
+  "supportedProperty": [
+    {
+      "property": {
+        "@id": "vocab:EntryPoint/books",
+        "@type": "hydra:Link",
+        "label": "books",
+        "description": "The books collection",
+        "domain": "vocab:EntryPoint",
+        "range": "vocab:BookCollection",
+        "supportedOperation": [
+          {
+            "@id": "_:book_collection_retrieve",
+            "@type": "hydra:Operation",
+            "method": "GET",
+            "label": "Retrieves all Book entities",
+            "description": null,
+            "expects": null,
+            "returns": "vocab:BookCollection",
+            "statusCodes": []
+          }
+        ]
+      },
+      "hydra:title": "books",
+      "hydra:description": "The books collection",
+      "required": null,
+      "readonly": true,
+      "writeonly": false
+    },
+    {
+      "property": {
+        "@id": "vocab:EntryPoint/authors",
+        "@type": "hydra:Link",
+        "label": "authors",
+        "description": "The Authors list",
+        "domain": "vocab:EntryPoint",
+        "range": "vocab:AuthorCollection",
+        "supportedOperation": [
+          {
+            "@id": "_:author_collection_retrieve",
+            "@type": "hydra:Operation",
+            "method": "GET",
+            "label": "Retrieves all Author entities",
+            "description": null,
+            "expects": null,
+            "returns": "vocab:AuthorCollection",
+            "statusCodes": []
+          }
+        ]
+      },
+      "hydra:title": "authors",
+      "hydra:description": "The authors collection",
+      "required": null,
+      "readonly": true,
+      "writeonly": false
+    },
+    {
+      "property": {
+        "@id": "vocab:EntryPoint/publishers",
+        "@type": "hydra:Link",
+        "label": "publishers",
+        "description": "The Publishers list",
+        "domain": "vocab:EntryPoint",
+        "range": "vocab:PublisherCollection",
+        "supportedOperation": [
+          {
+            "@id": "_:publisher_collection_retrieve",
+            "@type": "hydra:Operation",
+            "method": "GET",
+            "label": "Retrieves all Publisher entities",
+            "description": null,
+            "expects": null,
+            "returns": "vocab:PublisherCollection",
+            "statusCodes": []
+          }
+        ]
+      },
+      "hydra:title": "publishers",
+      "hydra:description": "The publishers collection",
+      "required": null,
+      "readonly": true,
+      "writeonly": false
+    }
+  ]
+}

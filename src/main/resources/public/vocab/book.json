@@ -1,0 +1,93 @@
+{
+  "@id": "http://schema.org/Book",
+  "@type": "hydra:Class",
+  "hydra:title": "Book",
+  "hydra:description": null,
+  "supportedOperation": [
+    {
+      "@id": "_:book_replace",
+      "@type": "http://schema.org/UpdateAction",
+      "method": "PUT",
+      "label": "Replaces an existing Book entity",
+      "description": null,
+      "expects": "http://schema.org/Book",
+      "returns": "http://schema.org/Book",
+      "statusCodes": [
+        {
+          "code": 404,
+          "description": "If the Book entity wasn't found."
+        }
+      ]
+    },
+    {
+      "@id": "_:book_delete",
+      "@type": "http://schema.org/DeleteAction",
+      "method": "DELETE",
+      "label": "Deletes a Book entity",
+      "description": null,
+      "expects": null,
+      "returns": "http://www.w3.org/2002/07/owl#Nothing",
+      "statusCodes": []
+    },
+    {
+      "@id": "_:book_retrieve",
+      "@type": "hydra:Operation",
+      "method": "GET",
+      "label": "Retrieves a Book entity",
+      "description": null,
+      "expects": null,
+      "returns": "http://schema.org/Book",
+      "statusCodes": []
+    }
+  ],
+  "supportedProperty": [
+    {
+      "property": "http://schema.org/headline",
+      "hydra:title": "title",
+      "hydra:description": "The book's title",
+      "required": true,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
+      "property": "http://schema.org/alternativeHeadline",
+      "hydra:title": "originalTitle",
+      "hydra:description": "The book's title in original language",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
+      "property": "http://schema.org/description",
+      "hydra:title": "description",
+      "hydra:description": "Description of the book",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
+      "property": "http://schema.org/copyrightYear",
+      "hydra:title": "copyrightYear",
+      "hydra:description": "Year of first book publication",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
+      "property": "http://schema.org/bookEdition",
+      "hydra:title": "bookEdition",
+      "hydra:description": "The edition of the book.",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
+      "property": "http://schema.org/isbn",
+      "hydra:title": "isbn",
+      "hydra:description": "The ISBN of the book.",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    }
+  ]
+}

@@ -22,7 +22,7 @@ public class Book {
     @Column(nullable = false)
     private String title;
 
-    @HydraType("http://schema.org/headline")
+    @HydraType("http://schema.org/alternativeHeadline")
     @Column
     private String originalTitle;
 
@@ -32,15 +32,15 @@ public class Book {
 
     @HydraType("http://schema.org/copyrightYear")
     @Column
-    private Integer publishYear;
+    private Integer copyrightYear;
 
     @HydraType("http://schema.org/bookEdition")
     @Column
-    private Integer publishEdition;
+    private Integer bookEdition;
 
     @HydraType("http://schema.org/numberOfPages")
     @Column
-    private Integer pageCount;
+    private Integer numberOfPages;
 
     @HydraType("http://schema.org/isbn")
     @Column
@@ -58,83 +58,4 @@ public class Book {
     private Publisher publisher;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getPublishYear() {
-        return publishYear;
-    }
-
-    public void setPublishYear(Integer publishYear) {
-        this.publishYear = publishYear;
-    }
-
-    public Integer getPublishEdition() {
-        return publishEdition;
-    }
-
-    public void setPublishEdition(Integer publishEdition) {
-        this.publishEdition = publishEdition;
-    }
-
-    public Integer getPageCount() {
-        return pageCount;
-    }
-
-    public void setPageCount(Integer pageCount) {
-        this.pageCount = pageCount;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public Set<Author> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(Set<Author> authors) {
-        this.authors = authors;
-    }
-
-    public Publisher getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
 }

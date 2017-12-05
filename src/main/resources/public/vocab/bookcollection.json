@@ -1,0 +1,44 @@
+{
+  "@id": "vocab:BookCollection",
+  "@type": "hydra:Class",
+  "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
+  "label": "BookCollection",
+  "description": "A collection of books",
+  "supportedOperation": [
+    {
+      "@id": "_:book_create",
+      "@type": "http://schema.org/AddAction",
+      "method": "POST",
+      "label": "Creates a new Book entity",
+      "description": null,
+      "expects": "http://schema.org/Book",
+      "returns": "http://schema.org/Book",
+      "statusCodes": [
+        {
+          "code": 201,
+          "description": "If the Book entity was created successfully."
+        }
+      ]
+    },
+    {
+      "@id": "_:book_collection_retrieve",
+      "@type": "hydra:Operation",
+      "method": "GET",
+      "label": "Retrieves all Book entities",
+      "description": null,
+      "expects": null,
+      "returns": "vocab:BookCollection",
+      "statusCodes": []
+    }
+  ],
+  "supportedProperty": [
+    {
+      "property": "http://www.w3.org/ns/hydra/core#member",
+      "hydra:title": "members",
+      "hydra:description": "The books",
+      "required": null,
+      "readonly": false,
+      "writeonly": false
+    }
+  ]
+}
