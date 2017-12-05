@@ -1,6 +1,6 @@
 package com.github.omenstudio.weblibrary.controller;
 
-import com.github.omenstudio.hydraback.annotation.HydraGetRequest;
+import com.github.omenstudio.hydraback.annotation.request.HydraGetRequest;
 import com.github.omenstudio.hydraback.builder.ContextBuilder;
 import com.github.omenstudio.weblibrary.entity.Author;
 import com.github.omenstudio.weblibrary.entity.Book;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/contexts/")
+@RequestMapping("/api/contexts")
 public class ContextController {
 
 

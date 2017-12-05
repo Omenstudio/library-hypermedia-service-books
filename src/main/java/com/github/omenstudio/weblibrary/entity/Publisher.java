@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Set;
 
 @HydraEntity
-@HydraType("http://schema.org/Organization")
+@HydraType("http://schema.org/publisher")
 @Entity
 @Table(name = "publishers")
 public class Publisher {

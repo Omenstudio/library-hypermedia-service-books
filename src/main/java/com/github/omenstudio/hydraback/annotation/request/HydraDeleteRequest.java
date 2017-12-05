@@ -1,4 +1,4 @@
-package com.github.omenstudio.hydraback.annotation;
+package com.github.omenstudio.hydraback.annotation.request;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,8 +14,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @CrossOrigin
-@RequestMapping(method = RequestMethod.GET, produces = "application/ld+json")
-public @interface HydraGetRequest {
+@RequestMapping(method = RequestMethod.DELETE, produces = "application/ld+json")
+public @interface HydraDeleteRequest {
     @AliasFor(annotation = RequestMapping.class, attribute = "path")
     String[] value() default {};
 }

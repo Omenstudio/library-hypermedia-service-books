@@ -31,7 +31,7 @@ public class HydraRequestHandler {
         gsonParser = new JsonParser();
     }
 
-    @Pointcut("@annotation(com.github.omenstudio.hydraback.annotation.HydraGetRequest)")
+    @Pointcut("@annotation(com.github.omenstudio.hydraback.annotation.request.HydraGetRequest)")
     public void hydraGetRequest() { }
 
     @Around("hydraGetRequest()")
