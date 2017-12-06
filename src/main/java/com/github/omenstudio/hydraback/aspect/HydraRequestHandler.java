@@ -1,6 +1,8 @@
 package com.github.omenstudio.hydraback.aspect;
 
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.annotation.HydraLink;
+import com.github.omenstudio.hydraback.annotation.HydraType;
 import com.github.omenstudio.hydraback.utils.AnnotationJsonExclusionStrategy;
 import com.github.omenstudio.hydraback.utils.HydraUrlResolver;
 import com.google.gson.*;
@@ -32,7 +34,8 @@ public class HydraRequestHandler {
     }
 
     @Pointcut("@annotation(com.github.omenstudio.hydraback.annotation.request.HydraGetRequest)")
-    public void hydraGetRequest() { }
+    public void hydraGetRequest() {
+    }
 
     @Around("hydraGetRequest()")
     public Object makeHydraResponseForGet(ProceedingJoinPoint thisJoinPoint) {
@@ -51,7 +54,7 @@ public class HydraRequestHandler {
 
         return ResponseEntity.ok()
                 .header("Access-Control-Expose-Headers", "Link")
-                .header("Link", "<"+ HydraUrlResolver.getVocabAddress()+">; " +
+                .header("Link", "<" + HydraUrlResolver.getVocabAddress() + ">; " +
                         "rel=\"http://www.w3.org/ns/hydra/core#apiDocumentation\"")
                 .body(response);
     }
@@ -62,7 +65,6 @@ public class HydraRequestHandler {
      *
      * @param objectFromController - object returned by Web MVC controller
      * @return response body representation in JSON-LD
-     *
      * @see #serializeCollection
      * @see #serializeEntityFully
      */
@@ -93,32 +95,20 @@ public class HydraRequestHandler {
 
         JsonObject resultJson = new JsonObject();
         JsonArray membersJson = new JsonArray();
-        String itemPathId = null, itemType = null;
+        boolean inited = false;
 
         for (Object obj : entityCollection) {
-            if (itemPathId == null) {
+            if(!inited) {
                 String className = obj.getClass().getSimpleName();
-                itemPathId = HydraUrlResolver.getApiPath() + "/" + className.toLowerCase() + "s/";
-                itemType = "http://schema.org/" + className;
-
+                String itemPathId = HydraUrlResolver.getApiPath() + "/" + className.toLowerCase() + "s/";
                 resultJson.addProperty("@id", itemPathId);
                 resultJson.addProperty("@context", HydraUrlResolver.getApiPath() + "/contexts/" + className + "Collection");
                 resultJson.addProperty("@type", className + "Collection");
+
+                inited = true;
             }
 
-            long id = 0;
-            try {
-                Field idField = obj.getClass().getDeclaredField("id");
-                idField.setAccessible(true);
-                id = ((long) idField.get(obj));
-            } catch (IllegalAccessException | NoSuchFieldException | ClassCastException e) {
-                e.printStackTrace();
-            }
-
-            JsonObject itemJsonObject = new JsonObject();
-            itemJsonObject.addProperty("@id", itemPathId + Long.toString(id));
-            itemJsonObject.addProperty("@type", itemType);
-            membersJson.add(itemJsonObject);
+            membersJson.add(serializeLinkToEntity(obj));
         }
 
         resultJson.add("members", membersJson);
@@ -127,13 +117,11 @@ public class HydraRequestHandler {
     }
 
 
-
-
     /**
      * <p>
      * Serializes single entity. Add properties @id, @context, @type,
      * which calculated based on class name.
-     *
+     * <p>
      * <p>
      * For example:
      * <pre>
@@ -150,7 +138,6 @@ public class HydraRequestHandler {
      *
      * @param entityObject Potential entity object, which can be presented in JSON-LD format
      * @return null if object is not HydraEntity, String representing json-ld object representation elsewhere
-     *
      * @see HydraEntity
      */
     private String serializeEntityFully(Object entityObject) {
@@ -175,7 +162,47 @@ public class HydraRequestHandler {
         resultJson.addProperty("@context", HydraUrlResolver.getApiPath() + "/contexts/" + className);
         resultJson.addProperty("@type", className);
 
+        //
+        for (Field field : entityObject.getClass().getDeclaredFields()) {
+            if (field.getDeclaredAnnotation(HydraLink.class) == null)
+                continue;
+
+            try {
+                field.setAccessible(true);
+                resultJson.add(field.getName(), serializeLinkToEntity(field.get(entityObject)));
+            } catch (IllegalAccessException | ClassCastException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         return resultJson.toString();
+    }
+
+
+    private static JsonObject serializeLinkToEntity(Object entityObject) {
+
+        HydraType annotation = entityObject.getClass().getDeclaredAnnotation(HydraType.class);
+
+        String className = entityObject.getClass().getSimpleName();
+        String itemPathId = HydraUrlResolver.getApiPath() + "/" + className.toLowerCase() + "s/";
+        String itemType = annotation != null ? annotation.value()[0] : "http://schema.org/" + className;
+
+        long id = 0;
+        try {
+            Field idField = entityObject.getClass().getDeclaredField("id");
+            idField.setAccessible(true);
+            id = ((long) idField.get(entityObject));
+        } catch (IllegalAccessException | NoSuchFieldException | ClassCastException e) {
+            e.printStackTrace();
+        }
+
+        JsonObject itemJsonObject = new JsonObject();
+        itemJsonObject.addProperty("@id", itemPathId + Long.toString(id));
+        itemJsonObject.addProperty("@type", itemType);
+
+
+        return itemJsonObject;
     }
 
 }

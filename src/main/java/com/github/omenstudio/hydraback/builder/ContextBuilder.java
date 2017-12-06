@@ -1,5 +1,6 @@
 package com.github.omenstudio.hydraback.builder;
 
+import com.github.omenstudio.hydraback.annotation.HydraLink;
 import com.github.omenstudio.hydraback.annotation.HydraType;
 import com.github.omenstudio.hydraback.utils.HydraUrlResolver;
 import com.google.gson.JsonObject;
@@ -34,9 +35,9 @@ public class ContextBuilder {
         JsonObject resultJson = new JsonObject();
         resultJson.addProperty(
                 collectionItemClass.getSimpleName() + "Collection",
-                "vocab:"+collectionItemClass.getSimpleName()+"Collection"
+                "vocab:" + collectionItemClass.getSimpleName() + "Collection"
         );
-        resultJson.addProperty("members","http://www.w3.org/ns/hydra/core#member");
+        resultJson.addProperty("members", "http://www.w3.org/ns/hydra/core#member");
 
         return wrapContext(resultJson);
     }
@@ -79,44 +80,58 @@ public class ContextBuilder {
 
     // doc this
     private static JsonObject buildInfoAboutFields(Class beanClass, JsonObject jsonObject) throws NullPointerException {
+
         for (Field field : beanClass.getDeclaredFields()) {
-            Annotation hydraTypeAnnotation = field.getDeclaredAnnotation(HydraType.class);
 
-            // Build context inly for those fields, which have annotation @HydraType
-            if (hydraTypeAnnotation == null) {
-                continue;
-            }
+            // Build context only for fields, which have annotation @HydraType
+            buildInfoAboutHydraTypeField(field, beanClass, jsonObject);
 
-            String[] values = ((HydraType) hydraTypeAnnotation).value();
-            String[] keys = ((HydraType) hydraTypeAnnotation).keys();
-
-            // If annotation has been used with different keys/values -> skip
-            if (values.length == 0 || values.length > 1 && values.length != keys.length) {
-                logger.warn("Can't build context for field " + field.getName() +
-                        " of class " + beanClass.toString() + ". " +
-                        "Illegal @HydraType annotation arguments");
-                continue;
-            }
-
-            // If values[] has 1 value, but keys hasn't => key is field name
-            if (keys.length == 0) {
-                jsonObject.addProperty(field.getName(), values[0]);
-            }
-            // Elsewhere build additional inner json object
-            else {
-                JsonObject innerObject = new JsonObject();
-                for (int i = 0; i < keys.length; i++) {
-                    innerObject.addProperty(keys[i], values[i]);
-                }
-                jsonObject.add(field.getName(), innerObject);
-            }
+            // Build context for field, which linked to some entity
+            buildInfoAboutFieldWithLink(field, beanClass, jsonObject);
 
         }
-
 
         return jsonObject;
     }
 
+    private static void buildInfoAboutHydraTypeField(Field field, Class beanClass, JsonObject resultObject) {
+        HydraType annotation = field.getDeclaredAnnotation(HydraType.class);
+        if (annotation == null)
+            return;
+
+        String[] values = annotation.value();
+        String[] keys = annotation.keys();
+
+        // If annotation has been used with different keys/values -> skip
+        if (values.length == 0 || values.length > 1 && values.length != keys.length) {
+            logger.warn("Can't build context for field " + field.getName() +
+                    " of class " + field.getDeclaringClass().toString() + ". " +
+                    "Illegal @HydraType annotation arguments");
+            return;
+        }
+
+        // If values[] has 1 value, but keys hasn't => key is field name
+        if (keys.length == 0) {
+            resultObject.addProperty(field.getName(), values[0]);
+        }
+        // Elsewhere build additional inner json object
+        else {
+            JsonObject innerObject = new JsonObject();
+            for (int i = 0; i < keys.length; i++) {
+                innerObject.addProperty(keys[i], values[i]);
+            }
+            resultObject.add(field.getName(), innerObject);
+        }
+    }
+
+
+    private static void buildInfoAboutFieldWithLink(Field field, Class beanClass, JsonObject resultJson) {
+        HydraLink annotation = field.getDeclaredAnnotation(HydraLink.class);
+        if (annotation == null)
+            return;
+
+        resultJson.addProperty(field.getName(), annotation.value());
+    }
 
     private static JsonObject wrapContext(JsonObject contextInfo) {
         contextInfo.addProperty("hydra", "http://www.w3.org/ns/hydra/core#");

@@ -88,6 +88,22 @@
       "required": false,
       "readonly": false,
       "writeonly": false
+    },
+    {
+      "property": "http://schema.org/Person",
+      "hydra:title": "author",
+      "hydra:description": "Author id of the book.",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
+      "property": "http://schema.org/Publisher",
+      "hydra:title": "publisher",
+      "hydra:description": "Publisher id of the book.",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
     }
   ]
 }

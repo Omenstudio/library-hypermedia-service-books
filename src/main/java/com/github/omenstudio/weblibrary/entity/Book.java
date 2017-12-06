@@ -1,6 +1,7 @@
 package com.github.omenstudio.weblibrary.entity;
 
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.annotation.HydraLink;
 import com.github.omenstudio.hydraback.annotation.HydraType;
 import com.github.omenstudio.hydraback.annotation.JsonExclude;
 
@@ -45,9 +46,11 @@ public class Book {
     @Column
     private String isbn;
 
+    @HydraLink("http://schema.org/Person")
     @ManyToOne
     private Author author;
 
+    @HydraLink("http://schema.org/Publisher")
     @ManyToOne
     private Publisher publisher;
 
