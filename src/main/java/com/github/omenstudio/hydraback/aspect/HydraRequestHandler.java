@@ -36,7 +36,15 @@ public class HydraRequestHandler {
     public void hydraGetRequest() {
     }
 
-    @Around("hydraGetRequest()")
+    @Pointcut("@annotation(com.github.omenstudio.hydraback.annotation.request.HydraPostRequest)")
+    public void hydraPostRequest() {
+    }
+
+    @Pointcut("@annotation(com.github.omenstudio.hydraback.annotation.request.HydraPutRequest)")
+    public void hydraPutRequest() {
+    }
+
+    @Around("hydraGetRequest() || hydraPostRequest() || hydraPutRequest()")
     public Object makeHydraResponseForGet(ProceedingJoinPoint thisJoinPoint) {
         String methodName = thisJoinPoint.getSignature().getName();
 

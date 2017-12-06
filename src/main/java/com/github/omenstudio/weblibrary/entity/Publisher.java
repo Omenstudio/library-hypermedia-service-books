@@ -21,7 +21,7 @@ public class Publisher {
 
     @HydraField("http://schema.org/name")
     @Column(nullable = false)
-    private String title;
+    private String name;
 
     @HydraField("http://schema.org/foundingDate")
     @Column
@@ -38,8 +38,8 @@ public class Publisher {
 
     public Publisher() { }
 
-    public Publisher(String title, Date foundingDate, String location) {
-        this.title = title;
+    public Publisher(String name, Date foundingDate, String location) {
+        this.name = name;
         if (foundingDate != null) this.foundingDate = foundingDate;
         if (location != null) this.location = location;
     }
@@ -52,12 +52,12 @@ public class Publisher {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getFoundingDate() {
