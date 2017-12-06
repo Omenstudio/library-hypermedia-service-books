@@ -1,18 +1,15 @@
 package com.github.omenstudio.weblibrary.entity;
 
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
-import com.github.omenstudio.hydraback.annotation.HydraType;
+import com.github.omenstudio.hydraback.annotation.HydraField;
 import com.github.omenstudio.hydraback.annotation.JsonExclude;
-import org.hibernate.annotations.LazyCollection;
 import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-@HydraEntity
-@HydraType("http://schema.org/Person")
+@HydraEntity("http://schema.org/Person")
 @Entity
 @Table(name = "authors")
 public class Author {
@@ -22,15 +19,15 @@ public class Author {
     @GeneratedValue
     private Long id;
 
-    @HydraType("http://schema.org/name")
+    @HydraField("http://schema.org/name")
     @Column(nullable = false)
     private String name;
 
-    @HydraType("http://schema.org/birthDate")
+    @HydraField("http://schema.org/birthDate")
     @Column
     private Date birthDate;
 
-    @HydraType("http://schema.org/birthPlace")
+    @HydraField("http://schema.org/birthPlace")
     @Column
     private String birthPlace;
 

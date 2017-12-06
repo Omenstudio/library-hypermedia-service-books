@@ -1,7 +1,8 @@
 package com.github.omenstudio.hydraback.builder;
 
+import com.github.omenstudio.hydraback.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.annotation.HydraField;
 import com.github.omenstudio.hydraback.annotation.HydraLink;
-import com.github.omenstudio.hydraback.annotation.HydraType;
 import com.github.omenstudio.hydraback.utils.HydraUrlResolver;
 import com.google.gson.JsonObject;
 import org.slf4j.Logger;
@@ -58,23 +59,15 @@ public class ContextBuilder {
 
     // doc this
     private static JsonObject buildInfoAboutEntity(Class beanClass, JsonObject jsonObject) {
-        Annotation hydraTypeAnnotation = beanClass.getDeclaredAnnotation(HydraType.class);
+        Annotation hydraTypeAnnotation = beanClass.getDeclaredAnnotation(HydraEntity.class);
 
         if (hydraTypeAnnotation == null) {
             logger.error("Can't build context for class " + beanClass.toString() + ". " +
-                    "There are no @HydraType annotation on class");
+                    "There are no @HydraField annotation on class");
             return jsonObject;
         }
 
-        String[] values = ((HydraType) hydraTypeAnnotation).value();
-
-        if (values.length != 1) {
-            logger.error("Can't build context for class " + beanClass.toString() + ". " +
-                    "Illegal @HydraType annotation arguments");
-            return jsonObject;
-        }
-
-        jsonObject.addProperty(beanClass.getSimpleName(), values[0]);
+        jsonObject.addProperty(beanClass.getSimpleName(), ((HydraEntity) hydraTypeAnnotation).value());
         return jsonObject;
     }
 
@@ -95,7 +88,7 @@ public class ContextBuilder {
     }
 
     private static void buildInfoAboutHydraTypeField(Field field, Class beanClass, JsonObject resultObject) {
-        HydraType annotation = field.getDeclaredAnnotation(HydraType.class);
+        HydraField annotation = field.getDeclaredAnnotation(HydraField.class);
         if (annotation == null)
             return;
 
@@ -106,7 +99,7 @@ public class ContextBuilder {
         if (values.length == 0 || values.length > 1 && values.length != keys.length) {
             logger.warn("Can't build context for field " + field.getName() +
                     " of class " + field.getDeclaringClass().toString() + ". " +
-                    "Illegal @HydraType annotation arguments");
+                    "Illegal @HydraField annotation arguments");
             return;
         }
 

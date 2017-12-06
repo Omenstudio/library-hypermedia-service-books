@@ -36,8 +36,8 @@ public class PublisherController {
     }
 
     @HydraPutRequest("/{publisherId}")
-    public Object changePublisher(@PathVariable Long id, @RequestBody Publisher publisher) {
-        publisher.setId(id);
+    public Object changePublisher(@PathVariable Long publisherId, @RequestBody Publisher publisher) {
+        publisher.setId(publisherId);
         return publisherRepository.save(publisher);
     }
 

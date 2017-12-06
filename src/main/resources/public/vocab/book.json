@@ -82,6 +82,14 @@
       "writeonly": false
     },
     {
+      "property": "http://schema.org/numberOfPages",
+      "hydra:title": "numberOfPages",
+      "hydra:description": "The book's page count.",
+      "required": false,
+      "readonly": false,
+      "writeonly": false
+    },
+    {
       "property": "http://schema.org/isbn",
       "hydra:title": "isbn",
       "hydra:description": "The ISBN of the book.",

@@ -36,8 +36,8 @@ public class AuthorController {
     }
 
     @HydraPutRequest("/{authorId}")
-    public Object changeAuthor(@PathVariable Long id, @RequestBody Author author) {
-        author.setId(id);
+    public Object changeAuthor(@PathVariable Long authorId, @RequestBody Author author) {
+        author.setId(authorId);
         return authorRepository.save(author);
     }
 

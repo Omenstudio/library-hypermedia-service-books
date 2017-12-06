@@ -5,12 +5,11 @@ import com.github.omenstudio.hydraback.annotation.request.HydraGetRequest;
 import com.github.omenstudio.hydraback.annotation.request.HydraPostRequest;
 import com.github.omenstudio.hydraback.annotation.request.HydraPutRequest;
 import com.github.omenstudio.weblibrary.entity.Book;
+import com.github.omenstudio.weblibrary.repository.AuthorRepository;
 import com.github.omenstudio.weblibrary.repository.BookRepository;
+import com.github.omenstudio.weblibrary.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/books")
@@ -19,13 +18,21 @@ public class BookController {
     @Autowired
     BookRepository bookRepository;
 
+    @Autowired
+    PublisherRepository publisherRepository;
+
+    @Autowired
+    AuthorRepository authorRepository;
+
     @HydraGetRequest
     public Object getBooks() {
         return bookRepository.findAll();
     }
 
     @HydraPostRequest
-    public Object createBook(@RequestBody Book book) {
+    public Object createBook(@RequestBody Book book,
+                             @RequestParam(required = false) String author,
+                             @RequestParam(required = false) String publisher) {
         return bookRepository.save(book);
     }
 
@@ -35,8 +42,8 @@ public class BookController {
     }
 
     @HydraPutRequest("/{bookId}")
-    public Object changeBook(@PathVariable Long id, @RequestBody Book book) {
-        book.setId(id);
+    public Object changeBook(@PathVariable Long bookId, @RequestBody Book book) {
+        book.setId(bookId);
         return bookRepository.save(book);
     }
 
@@ -44,7 +51,5 @@ public class BookController {
     public void deleteBook(@PathVariable Long bookId) {
         bookRepository.delete(bookId);
     }
-
-
 
 }

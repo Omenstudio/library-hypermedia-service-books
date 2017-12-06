@@ -2,7 +2,6 @@ package com.github.omenstudio.hydraback.aspect;
 
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
 import com.github.omenstudio.hydraback.annotation.HydraLink;
-import com.github.omenstudio.hydraback.annotation.HydraType;
 import com.github.omenstudio.hydraback.utils.AnnotationJsonExclusionStrategy;
 import com.github.omenstudio.hydraback.utils.HydraUrlResolver;
 import com.google.gson.*;
@@ -181,12 +180,14 @@ public class HydraRequestHandler {
 
 
     private static JsonObject serializeLinkToEntity(Object entityObject) {
+        if (entityObject == null)
+            return null;
 
-        HydraType annotation = entityObject.getClass().getDeclaredAnnotation(HydraType.class);
+        HydraEntity annotation = entityObject.getClass().getDeclaredAnnotation(HydraEntity.class);
 
         String className = entityObject.getClass().getSimpleName();
         String itemPathId = HydraUrlResolver.getApiPath() + "/" + className.toLowerCase() + "s/";
-        String itemType = annotation != null ? annotation.value()[0] : "http://schema.org/" + className;
+        String itemType = annotation != null ? annotation.value() : "http://schema.org/" + className;
 
         long id = 0;
         try {

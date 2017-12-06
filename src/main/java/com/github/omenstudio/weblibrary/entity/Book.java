@@ -1,15 +1,18 @@
 package com.github.omenstudio.weblibrary.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
+import com.github.omenstudio.hydraback.annotation.HydraField;
 import com.github.omenstudio.hydraback.annotation.HydraLink;
-import com.github.omenstudio.hydraback.annotation.HydraType;
 import com.github.omenstudio.hydraback.annotation.JsonExclude;
+import com.github.omenstudio.weblibrary.utils.BookJsonDeserializer;
 
 import javax.persistence.*;
 
-@HydraEntity
-@HydraType("http://schema.org/Book")
+@HydraEntity("http://schema.org/Book")
 @Entity
+@JsonDeserialize(using = BookJsonDeserializer.class)
 @Table(name = "books")
 public class Book {
 
@@ -18,39 +21,41 @@ public class Book {
     @GeneratedValue
     private Long id;
 
-    @HydraType("http://schema.org/headline")
+    @HydraField("http://schema.org/headline")
     @Column(nullable = false)
     private String title;
 
-    @HydraType("http://schema.org/alternativeHeadline")
+    @HydraField("http://schema.org/alternativeHeadline")
     @Column
     private String originalTitle;
 
-    @HydraType("http://schema.org/description")
+    @HydraField("http://schema.org/description")
     @Column
     private String description;
 
-    @HydraType("http://schema.org/copyrightYear")
+    @HydraField("http://schema.org/copyrightYear")
     @Column
     private Integer copyrightYear;
 
-    @HydraType("http://schema.org/bookEdition")
+    @HydraField("http://schema.org/bookEdition")
     @Column
     private Integer bookEdition;
 
-    @HydraType("http://schema.org/numberOfPages")
+    @HydraField("http://schema.org/numberOfPages")
     @Column
     private Integer numberOfPages;
 
-    @HydraType("http://schema.org/isbn")
+    @HydraField("http://schema.org/isbn")
     @Column
     private String isbn;
 
     @HydraLink("http://schema.org/Person")
+    @JsonIgnore
     @ManyToOne
     private Author author;
 
     @HydraLink("http://schema.org/Publisher")
+    @JsonIgnore
     @ManyToOne
     private Publisher publisher;
 

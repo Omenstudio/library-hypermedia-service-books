@@ -1,17 +1,15 @@
 package com.github.omenstudio.weblibrary.entity;
 
 import com.github.omenstudio.hydraback.annotation.HydraEntity;
-import com.github.omenstudio.hydraback.annotation.HydraType;
+import com.github.omenstudio.hydraback.annotation.HydraField;
 import com.github.omenstudio.hydraback.annotation.JsonExclude;
 import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-@HydraEntity
-@HydraType("http://schema.org/Publisher")
+@HydraEntity("http://schema.org/Publisher")
 @Entity
 @Table(name = "publishers")
 public class Publisher {
@@ -21,15 +19,15 @@ public class Publisher {
     @GeneratedValue
     private Long id;
 
-    @HydraType("http://schema.org/name")
+    @HydraField("http://schema.org/name")
     @Column(nullable = false)
     private String title;
 
-    @HydraType("http://schema.org/foundingDate")
+    @HydraField("http://schema.org/foundingDate")
     @Column
     private Date foundingDate;
 
-    @HydraType("http://schema.org/location")
+    @HydraField("http://schema.org/location")
     @Column
     private String location;
 
