@@ -62,6 +62,8 @@ public class VocabBuilder {
 
 
     private static String readFileContent(Path path) {
+        logger.info("#readFileContent: started");
+        logger.info("#readFileContent: for " + path.toString());
         try {
             return new String(Files.readAllBytes(path));
         } catch (IOException e) {
@@ -77,6 +79,9 @@ public class VocabBuilder {
 
 
     private static String readFileContent(String resourcePath) {
+        logger.info("#readFileContent: started");
+        logger.info("#readFileContent: for resource - " + resourcePath);
+
         try {
             Path path = Paths.get(ClassLoader.getSystemResource(resourcePath).toURI());
             return readFileContent(path);
