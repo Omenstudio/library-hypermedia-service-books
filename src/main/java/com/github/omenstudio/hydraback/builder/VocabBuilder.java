@@ -79,11 +79,13 @@ public class VocabBuilder {
 
 
     private static String readFileContent(String resourcePath) {
-        logger.info("#readFileContent: started");
-        logger.info("#readFileContent: for resource - " + resourcePath);
+        logger.info("#readFileContent: started for resource - " + resourcePath);
 
         try {
             Path path = Paths.get(ClassLoader.getSystemResource(resourcePath).toURI());
+
+            logger.info("#readFileContent: resource found - " + path.toString());
+
             return readFileContent(path);
         } catch (URISyntaxException e) {
             e.printStackTrace();
