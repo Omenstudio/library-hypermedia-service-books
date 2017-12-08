@@ -33,5 +33,5 @@ To customize application you need:
 
 ## See also
 - Another hypermedia web API service, which also use Hydra and Json-ld: https://github.com/Omenstudio/library-hypermedia-service-articles
-- WEB UI application based on HydraConsole, which allow you work with hypermedia services 
+- WEB UI application based on HydraConsole, which allow you work with hypermedia services: https://github.com/Omenstudio/hypermedia-library-web-ui
 
