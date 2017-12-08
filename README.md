@@ -24,10 +24,14 @@ You need locally installed Java 8 SDK, Postgres 9+ (or other DBMS), Maven 3+.
 
 Server will be started at localhost and you can access API.
 
-Project use Spring (Core, Boot, MVC, Data JPA), Hibernate, AspectJ, Json-ld.  
+Project use Spring (Core, Boot, MVC, Data JPA), Hibernate, AspectJ, Json-ld.
+
+To customize application you need:
+1. Change DB connection in `application.properties`
+2. Change server url in `src/main/java/com/github/omenstudio/weblibrary/AppConfig.java`
 
 
 ## See also
-Another hypermedia web API service, which also use Hydra and Json-ld: https://github.com/Omenstudio/library-hypermedia-service-articles
-WEB UI application based on HydraConsole, which allow you work with hypermedia services 
+- Another hypermedia web API service, which also use Hydra and Json-ld: https://github.com/Omenstudio/library-hypermedia-service-articles
+- WEB UI application based on HydraConsole, which allow you work with hypermedia services: https://github.com/Omenstudio/hypermedia-library-web-ui
 
