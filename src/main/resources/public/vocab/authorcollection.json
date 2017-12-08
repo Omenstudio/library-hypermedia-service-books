@@ -11,8 +11,8 @@
       "method": "POST",
       "label": "Creates a new Author entity",
       "description": null,
-      "expects": "http://schema.org/author",
-      "returns": "http://schema.org/author",
+      "expects": "http://schema.org/Person",
+      "returns": "http://schema.org/Person",
       "statusCodes": [
         {
           "code": 201,
