@@ -87,8 +87,7 @@ public class VocabBuilder {
             logger.info("#readFileContent: resource found - " + path.toString());
 
             return readFileContent(path);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
             logger.error("#readFileContent: " + e.toString());
         }
         return "";
