@@ -4,6 +4,8 @@ import com.github.omenstudio.hydraback.utils.HydraUrlResolver;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.util.Arrays;
 public class VocabBuilder {
     private static String apiDoc = null;
 
+    private static Logger logger = LoggerFactory.getLogger(VocabBuilder.class);
 
     public static String buildVocabulary() {
         if (apiDoc == null) {
@@ -27,20 +30,28 @@ public class VocabBuilder {
 
 
     private static void readMainVocab() {
+        logger.debug("#readMainVocab: start reading vocab ");
+
         String readedData = readFileContent("public/vocab/vocab.json")
                 .replaceAll("API_ADDR", HydraUrlResolver.getApiAddress())
                 .replaceAll("VOCAB_ADDR", HydraUrlResolver.getVocabAddress());
+
+        logger.debug("#readMainVocab: readed " + Integer.toString(readedData.length()) + " chars");
 
         final JsonParser parser = new JsonParser();
 
         JsonObject resultJson = parser.parse(readedData).getAsJsonObject();
         JsonArray classes = resultJson.getAsJsonArray("supportedClass");
 
+        logger.debug("#readMainVocab: vocab parsed as json");
+
         Arrays.stream(findFilesInDir("public/vocab/"))
                 .filter(e -> !e.getName().equals("vocab.json"))
                 .map(e -> VocabBuilder.readFileContent(e.toPath()))
                 .map(parser::parse)
                 .forEach(classes::add);
+
+        logger.debug("#readMainVocab: additional files are readed");
 
         apiDoc = resultJson.toString();
     }
