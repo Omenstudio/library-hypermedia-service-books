@@ -21,6 +21,8 @@ public class VocabBuilder {
     private static Logger logger = LoggerFactory.getLogger(VocabBuilder.class);
 
     public static String buildVocabulary() {
+        logger.info("#buildVocabulary: started");
+
         if (apiDoc == null) {
             readMainVocab();
         }
@@ -30,20 +32,20 @@ public class VocabBuilder {
 
 
     private static void readMainVocab() {
-        logger.debug("#readMainVocab: start reading vocab ");
+        logger.info("#readMainVocab: start reading vocab ");
 
         String readedData = readFileContent("public/vocab/vocab.json")
                 .replaceAll("API_ADDR", HydraUrlResolver.getApiAddress())
                 .replaceAll("VOCAB_ADDR", HydraUrlResolver.getVocabAddress());
 
-        logger.debug("#readMainVocab: readed " + Integer.toString(readedData.length()) + " chars");
+        logger.info("#readMainVocab: readed " + Integer.toString(readedData.length()) + " chars");
 
         final JsonParser parser = new JsonParser();
 
         JsonObject resultJson = parser.parse(readedData).getAsJsonObject();
         JsonArray classes = resultJson.getAsJsonArray("supportedClass");
 
-        logger.debug("#readMainVocab: vocab parsed as json");
+        logger.info("#readMainVocab: vocab parsed as json");
 
         Arrays.stream(findFilesInDir("public/vocab/"))
                 .filter(e -> !e.getName().equals("vocab.json"))
@@ -51,7 +53,7 @@ public class VocabBuilder {
                 .map(parser::parse)
                 .forEach(classes::add);
 
-        logger.debug("#readMainVocab: additional files are readed");
+        logger.info("#readMainVocab: additional files are readed");
 
         apiDoc = resultJson.toString();
     }
