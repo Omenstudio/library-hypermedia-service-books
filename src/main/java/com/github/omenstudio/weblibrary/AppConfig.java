@@ -10,7 +10,8 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     static {
-        HydraUrlResolver.setApplicationAddress("http://localhost:8080");
+//        HydraUrlResolver.setApplicationAddress("http://localhost:8080");
+        HydraUrlResolver.setApplicationAddress("https://library-service-books.herokuapp.com");
         HydraUrlResolver.setApiPath("/api");
         HydraUrlResolver.setVocabPath("/api/vocab");
     }
