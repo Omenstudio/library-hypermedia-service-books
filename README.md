@@ -19,8 +19,7 @@ You need locally installed Java 8 SDK, Postgres 9+ (or other DBMS), Maven 3+.
 1. `git clone https://github.com/Omenstudio/library-hypermedia-service-books.git`
 2. `cd library-hypermedia-service-books/`
 3. `mvn install`
-4. `cd target`
-5. `java -jar service-books-1.0.0.jar`
+4. `java -jar target/service-books-1.0.0.jar`
 
 Server will be started at localhost and you can access API.
 
