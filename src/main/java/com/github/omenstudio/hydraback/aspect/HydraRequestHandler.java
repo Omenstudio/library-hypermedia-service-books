@@ -9,6 +9,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,8 @@ import java.util.Collection;
 @Aspect
 @Component
 public class HydraRequestHandler {
+
+    private static Logger logger = LoggerFactory.getLogger(HydraRequestHandler.class);
 
     private static final Gson gsonBuilder;
 
@@ -161,7 +165,7 @@ public class HydraRequestHandler {
             field.setAccessible(true);
             objectId = ((long) field.get(entityObject));
         } catch (NoSuchFieldException | IllegalAccessException | NullPointerException e) {
-            e.printStackTrace();
+
         }
 
         JsonObject resultJson = gsonParser.parse(gsonBuilder.toJson(entityObject)).getAsJsonObject();
@@ -178,7 +182,7 @@ public class HydraRequestHandler {
                 field.setAccessible(true);
                 resultJson.add(field.getName(), serializeLinkToEntity(field.get(entityObject)));
             } catch (IllegalAccessException | ClassCastException e) {
-                e.printStackTrace();
+                logger.error("#serializeEntityFully: " + e.toString());
             }
         }
 
@@ -203,7 +207,7 @@ public class HydraRequestHandler {
             idField.setAccessible(true);
             id = ((long) idField.get(entityObject));
         } catch (IllegalAccessException | NoSuchFieldException | ClassCastException e) {
-            e.printStackTrace();
+            logger.error("#serializeLinkToEntity: " + e.toString());
         }
 
         JsonObject itemJsonObject = new JsonObject();

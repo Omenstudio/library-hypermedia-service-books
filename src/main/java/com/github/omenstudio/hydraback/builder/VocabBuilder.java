@@ -67,7 +67,6 @@ public class VocabBuilder {
         try {
             return new String(Files.readAllBytes(path));
         } catch (IOException e) {
-            e.printStackTrace();
             logger.error("#readFileContent: " + e.toString());
         }
         return "";
@@ -98,7 +97,7 @@ public class VocabBuilder {
         try {
             return Paths.get(ClassLoader.getSystemResource(resourceDir).toURI()).toFile().listFiles();
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
         return new File[0];
     }
