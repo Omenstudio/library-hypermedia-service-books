@@ -34,6 +34,8 @@ public class VocabBuilder {
     private static void readMainVocab() {
         logger.info("#readMainVocab: start reading vocab ");
 
+
+
         String readedData = readFileContent(ClassLoader.getSystemResource("public/vocab/vocab.json").getPath())
                 .replaceAll("API_ADDR", HydraUrlResolver.getApiAddress())
                 .replaceAll("VOCAB_ADDR", HydraUrlResolver.getVocabAddress());
@@ -64,6 +66,7 @@ public class VocabBuilder {
             return new String(Files.readAllBytes(path));
         } catch (IOException e) {
             e.printStackTrace();
+            logger.error("#readFileContent: " + e.toString());
         }
         return "";
     }
