@@ -38,7 +38,8 @@
     "subClassOf": {
       "@id": "rdfs:subClassOf",
       "@type": "@id"
-    }
+    },
+    "member_of": "hydra:member_of"
   },
   "@id": "VOCAB_ADDR",
   "@type": "ApiDocumentation",
@@ -48,6 +49,7 @@
       "@type": "hydra:Class",
       "hydra:title": "Collection",
       "hydra:description": null,
+      "hydra:member_of": null,
       "supportedOperation": [],
       "supportedProperty": [
         {

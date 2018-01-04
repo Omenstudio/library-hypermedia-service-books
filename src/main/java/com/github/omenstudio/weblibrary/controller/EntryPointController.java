@@ -1,6 +1,6 @@
 package com.github.omenstudio.weblibrary.controller;
 
-import com.github.omenstudio.hydraback.annotation.request.HydraGetRequest;
+import com.github.omenstudio.hydra.annotation.request.HydraGetRequest;
 import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,15 +1,25 @@
 package com.github.omenstudio.weblibrary.entity;
 
-import com.github.omenstudio.hydraback.annotation.HydraEntity;
-import com.github.omenstudio.hydraback.annotation.HydraField;
-import com.github.omenstudio.hydraback.annotation.JsonExclude;
+
+import com.github.omenstudio.hydra.annotation.JsonExclude;
+import com.github.omenstudio.hydra.annotation.model.HydraEntity;
+import com.github.omenstudio.hydra.annotation.model.HydraField;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@HydraEntity("http://schema.org/Person")
+//import java.util.Date;
+
+
+@HydraEntity(
+        value = "http://schema.org/Person",
+        pathToEntity = "/authors/",
+        pathToCollection = "/authors/"
+)
 @Entity
 @Table(name = "authors")
 public class Author {
@@ -17,18 +27,26 @@ public class Author {
     @JsonExclude
     @Id
     @GeneratedValue
+    @Getter
+    @Setter
     private Long id;
 
-    @HydraField("http://schema.org/name")
+    @HydraField(value = "http://schema.org/name", includeInCollection = true)
     @Column(nullable = false)
+    @Getter
+    @Setter
     private String name;
 
     @HydraField("http://schema.org/birthDate")
     @Column
+    @Getter
+    @Setter
     private Date birthDate;
 
     @HydraField("http://schema.org/birthPlace")
     @Column
+    @Getter
+    @Setter
     private String birthPlace;
 
     @JsonExclude
@@ -42,38 +60,6 @@ public class Author {
         this.name = name;
         if (birthDate != null) this.birthDate = birthDate;
         if (birthPlace != null) this.birthPlace = birthPlace;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getBirthPlace() {
-        return birthPlace;
-    }
-
-    public void setBirthPlace(String birthPlace) {
-        this.birthPlace = birthPlace;
     }
 
 }

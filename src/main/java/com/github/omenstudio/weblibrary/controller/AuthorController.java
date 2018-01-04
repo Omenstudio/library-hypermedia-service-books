@@ -1,10 +1,10 @@
 package com.github.omenstudio.weblibrary.controller;
 
 
-import com.github.omenstudio.hydraback.annotation.request.HydraDeleteRequest;
-import com.github.omenstudio.hydraback.annotation.request.HydraGetRequest;
-import com.github.omenstudio.hydraback.annotation.request.HydraPostRequest;
-import com.github.omenstudio.hydraback.annotation.request.HydraPutRequest;
+import com.github.omenstudio.hydra.annotation.request.HydraDeleteRequest;
+import com.github.omenstudio.hydra.annotation.request.HydraGetRequest;
+import com.github.omenstudio.hydra.annotation.request.HydraPostRequest;
+import com.github.omenstudio.hydra.annotation.request.HydraPutRequest;
 import com.github.omenstudio.weblibrary.entity.Author;
 import com.github.omenstudio.weblibrary.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;

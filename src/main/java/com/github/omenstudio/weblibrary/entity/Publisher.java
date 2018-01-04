@@ -1,15 +1,21 @@
 package com.github.omenstudio.weblibrary.entity;
 
-import com.github.omenstudio.hydraback.annotation.HydraEntity;
-import com.github.omenstudio.hydraback.annotation.HydraField;
-import com.github.omenstudio.hydraback.annotation.JsonExclude;
+import com.github.omenstudio.hydra.annotation.JsonExclude;
+import com.github.omenstudio.hydra.annotation.model.HydraEntity;
+import com.github.omenstudio.hydra.annotation.model.HydraField;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@HydraEntity("http://schema.org/Publisher")
+@HydraEntity(
+        value = "http://schema.org/Publisher",
+        pathToEntity = "/publishers/",
+        pathToCollection = "/publishers/"
+)
 @Entity
 @Table(name = "publishers")
 public class Publisher {
@@ -17,18 +23,26 @@ public class Publisher {
     @JsonExclude
     @Id
     @GeneratedValue
+    @Getter
+    @Setter
     private Long id;
 
-    @HydraField("http://schema.org/name")
+    @HydraField(value = "http://schema.org/name", includeInCollection = true)
     @Column(nullable = false)
+    @Getter
+    @Setter
     private String name;
 
     @HydraField("http://schema.org/foundingDate")
     @Column
+    @Getter
+    @Setter
     private Date foundingDate;
 
     @HydraField("http://schema.org/location")
     @Column
+    @Getter
+    @Setter
     private String location;
 
     @JsonExclude
@@ -42,38 +56,6 @@ public class Publisher {
         this.name = name;
         if (foundingDate != null) this.foundingDate = foundingDate;
         if (location != null) this.location = location;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getFoundingDate() {
-        return foundingDate;
-    }
-
-    public void setFoundingDate(Date foundingDate) {
-        this.foundingDate = foundingDate;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
 }

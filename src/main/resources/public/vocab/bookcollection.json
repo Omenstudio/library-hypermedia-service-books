@@ -4,6 +4,7 @@
   "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
   "label": "BookCollection",
   "description": "A collection of books",
+  "member_of": "http://schema.org/Book",
   "supportedOperation": [
     {
       "@id": "_:book_create",

@@ -1,7 +1,9 @@
 package com.github.omenstudio.weblibrary.controller;
 
-import com.github.omenstudio.hydraback.annotation.request.HydraGetRequest;
-import com.github.omenstudio.hydraback.builder.ContextBuilder;
+import com.github.omenstudio.hydra.annotation.context.HydraContextClass;
+import com.github.omenstudio.hydra.annotation.context.HydraContextCollection;
+import com.github.omenstudio.hydra.annotation.context.HydraContextEntryPoint;
+import com.github.omenstudio.hydra.annotation.request.HydraGetRequest;
 import com.github.omenstudio.weblibrary.entity.Author;
 import com.github.omenstudio.weblibrary.entity.Book;
 import com.github.omenstudio.weblibrary.entity.Publisher;
@@ -10,42 +12,49 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/contexts")
+@RequestMapping("/api/contexts/")
 public class ContextController {
 
 
+    @HydraContextEntryPoint
     @HydraGetRequest("EntryPoint")
     public Object getEntryPointContext() {
-        return ContextBuilder.buildForEntryPoint("books", "authors", "publishers");
+        return new String[] { "books", "authors", "publishers" };
     }
 
+    @HydraContextClass
     @HydraGetRequest("Book")
     public Object getBookContext() {
-        return ContextBuilder.buildForClass(Book.class);
+        return Book.class;
     }
 
+    @HydraContextCollection
     @HydraGetRequest("BookCollection")
     public Object getBookCollection() {
-        return ContextBuilder.buildForCollection(Book.class);
+        return Book.class;
     }
 
+    @HydraContextClass
     @HydraGetRequest("Author")
     public Object getAuthorContext() {
-        return ContextBuilder.buildForClass(Author.class);
+        return Author.class;
     }
 
+    @HydraContextCollection
     @HydraGetRequest("AuthorCollection")
     public Object getAuthorCollection() {
-        return ContextBuilder.buildForCollection(Author.class);
+        return Author.class;
     }
 
+    @HydraContextClass
     @HydraGetRequest("Publisher")
     public Object getPublisherContext() {
-        return ContextBuilder.buildForClass(Publisher.class);
+        return Publisher.class;
     }
 
+    @HydraContextCollection
     @HydraGetRequest("PublisherCollection")
     public Object getPublisherCollection() {
-        return ContextBuilder.buildForCollection(Publisher.class);
+        return Publisher.class;
     }
 }

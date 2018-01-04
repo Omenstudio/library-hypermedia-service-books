@@ -4,6 +4,7 @@
   "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
   "label": "PublisherCollection",
   "description": "A collection of publishers",
+  "member_of": "http://schema.org/Publisher",
   "supportedOperation": [
     {
       "@id": "_:publisher_create",

@@ -4,6 +4,7 @@
   "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
   "label": "AuthorCollection",
   "description": "A collection of authors",
+  "member_of": "http://schema.org/Person",
   "supportedOperation": [
     {
       "@id": "_:author_create",
