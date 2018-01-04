@@ -4,7 +4,6 @@ Hypermedia-driven Web API that supports Hydra (http://www.hydra-cg.com/), json-l
 
 
 ## Working example
-Working application avaiable at https://library-service-books.herokuapp.com/ with [Heroku services](https://dashboard.heroku.com).
 
 API endpoint: https://library-service-books.herokuapp.com/api/
 
@@ -25,12 +24,13 @@ Server will be started at localhost and you can access API.
 
 Project use Spring (Core, Boot, MVC, Data JPA), Hibernate, AspectJ, Json-ld.
 
-To customize application you need:
-1. Change DB connection in `application.properties`
-2. Change server url in `src/main/java/com/github/omenstudio/weblibrary/AppConfig.java`
+To customize application you need to change DB connection and server URL in `resources/application.properties`
 
 
 ## See also
+- Hypermedia micro-framework, which was used in the service: https://github.com/Omenstudio/hydra-microframework
 - Another hypermedia web API service, which also use Hydra and Json-ld: https://github.com/Omenstudio/library-hypermedia-service-articles
-- WEB UI application based on HydraConsole, which allow you work with hypermedia services: https://github.com/Omenstudio/hypermedia-library-web-ui
+- WEB UI library application which work with articles and books services: https://github.com/Omenstudio/hypermedia-library-web-ui
 
+
+Working application available at https://library-service-books.herokuapp.com/
