@@ -6,12 +6,14 @@ import com.github.omenstudio.weblibrary.entity.Publisher;
 import com.github.omenstudio.weblibrary.repository.AuthorRepository;
 import com.github.omenstudio.weblibrary.repository.BookRepository;
 import com.github.omenstudio.weblibrary.repository.PublisherRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
 @RestController
 public class TestController {
@@ -31,22 +33,26 @@ public class TestController {
     }
 
     @GetMapping("/resetdb")
+    @SneakyThrows
     public void resetDb() {
         // Clear the database
         bookRepository.deleteAll();
         authorRepository.deleteAll();
         publisherRepository.deleteAll();
 
+        // Date formatter
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
         // Authors
-        Author stephenKing = new Author("Stephen King", new Date(1947, 8, 21), "State Man, USA");
-        Author arthurConanDoyle = new Author("Arthur Conan Doyle", new Date(1859, 4, 22), "Edinburg, Great Britain");
+        Author stephenKing = new Author("Stephen King", format.parse("1947-8-21"), "State Man, USA");
+        Author arthurConanDoyle = new Author("Arthur Conan Doyle", format.parse("1859-4-22"), "Edinburg, Great Britain");
         Author andreyCruz = new Author("Andrey Cruz", null, "Moscow, Russia");
-        Author malcolmGladwell = new Author("Malcolm Gladwell", new Date(1963, 8, 3), "Warhem, Great Britain");
+        Author malcolmGladwell = new Author("Malcolm Gladwell", format.parse("1963-8-13"), "Warhem, Great Britain");
 
         // Publishers
-        Publisher eksmo = new Publisher("Eksmo", new Date(1991, 0, 0), "Moscow, Russia");
-        Publisher mif = new Publisher("MIF: Mann, Ivanov, Ferber", new Date(2005, 0, 0), "Moscow, Russia");
-        Publisher alpina = new Publisher("Alpina Publisher", new Date(1998, 0, 0), "Saint-Petersburg, Russia");
+        Publisher eksmo = new Publisher("Eksmo", format.parse("1991-3-19"), "Moscow, Russia");
+        Publisher mif = new Publisher("MIF: Mann, Ivanov, Ferber", format.parse("2004-9-28"), "Moscow, Russia");
+        Publisher alpina = new Publisher("Alpina Publisher", format.parse("1998-1-1"), "Saint-Petersburg, Russia");
 
         // Books
         Book king1 = new Book("Ono", "It: A Novel",
